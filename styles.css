@@ -2,4 +2,16 @@
      max-width: 1586px;
      min-height: 100vh;
      font-family: "Jost", sans-serif;
+     color: #000000;
+     display: grid;
+     grid-template-columns: 277px 914px 360px;
+     grid-template-rows: 97px 174px 277px 192px;
      }
+
+.footer {
+    border: 1px solid green;
+    grid-column: 1/4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
