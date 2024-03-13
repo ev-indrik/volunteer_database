@@ -2,6 +2,7 @@
   max-width: 992px;
   min-height: 100vh;
   display: flex;
+  overflow: hidden;
   flex-direction: column;
   margin: 0 auto;
   padding: 10px 30px;
@@ -12,9 +13,10 @@
 .grid_container {
   flex: 1 1 auto;
   display: grid;
-  gap: 1%;
-  grid-template-columns: 17% 59% 23%;
-  grid-template-rows: 13% 13% 53% 20%;
+  overflow: hidden;
+  gap: 8px;
+  grid-template-columns: 17% 1fr 23%;
+  grid-template-rows: 13% 13% 1fr 20%;
   grid-template-areas:
     "header header header"
     ". selection-by-cities ."
@@ -47,6 +49,7 @@
 .selection_by_cities {
   grid-area: selection-by-cities;
   border-radius: 12px;
+  background: #e8f2f6;
 }
 
 .select_zone {
