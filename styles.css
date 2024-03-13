@@ -1,5 +1,5 @@
 .container {
-  max-width: 992px;
+  max-width: 1300px;
   min-height: 100vh;
   display: flex;
   overflow: hidden;
@@ -28,8 +28,9 @@
   background-color: #002d63;
   border-radius: 12px;
   grid-area: header;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 17% 1fr 23%;
+  gap: 8px;
   align-items: center;
 }
 
@@ -44,6 +45,40 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.database_name {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.name_wrapper h1 {
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 50px;
+  color: #ffffff;
+}
+
+.search_form {
+  color: #b3b3b3;
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+.search-input {
+  width: 320px;
+  height: 40px;
+  border-radius: 12px;
+  align-self: first baseline;
+  text-indent: 20px;
+}
+
+.search-input::placeholder {
+  background-image: url("./resources/Icons.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding-left: 10px;
 }
 
 .selection_by_cities {
