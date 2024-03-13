@@ -1,45 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="./reseting.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./reseting.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <title>volunteer database</title>
-</head>
-<body>
+  </head>
 
-    <div class="wrapper">
+  <body>
+    <div class="container">
+      <div class="grid_container">
         <header class="header">
-            <div class="footer_logo">
-                <img src="./resources/logo.png" alt="logo">
-            </div>
-            <div class="base-name">
+          <div class="footer_logo">
+            <img src="./resources/logo.svg" alt="logo" />
+          </div>
+          <div class="database_name">
             <h1>Volunteers DB</h1>
-        </div>
-            <div class="serach-form">
-            </div>
+          </div>
+          <div class="serach_form">
+            <form action="#" method="get">
+              <input
+                type="text"
+                name="search"
+                class="search-input"
+                placeholder="search"
+              />
+              <button type="submit" class="search-button">&#128269;</button>
+            </form>
+          </div>
         </header>
 
-    <section class="main">
-        <aside></aside>
-        <div class="database"></div>
-        <div class="vol_cards"></div>
-     </section>
+        <div class="selection_by_cities"></div>
 
-     <section class="total">
-        <div class="total_volNumbers">
-            <ul>
-                <li>Total volunteers:</li>
-                <li>Total hired</li>
-                <li>Total available</li>
-            </ul>
+        <aside class="select_zone">
+          <h2>select zone</h2>
+        </aside>
+        <div class="database">
+          <h2>database</h2>
         </div>
-        <div class="total_volDonations"></div>
-     </section>
+        <div class="vol_cards">
+          <h2>vl_cards</h2>
+        </div>
+
+        <section class="total">
+          <div class="total_volNumbers">
+            <ul>
+              <li>Total volunteers:</li>
+              <li>Total hired</li>
+              <li>Total available</li>
+            </ul>
+          </div>
+          <div class="total_volDonations"></div>
+        </section>
+      </div>
     </div>
-</body>
+  </body>
 </html>
