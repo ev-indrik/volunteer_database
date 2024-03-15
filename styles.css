@@ -131,6 +131,15 @@
   grid-area: database;
   background-color: #f3f3f3;
   border-radius: 12px;
+  display: grid;
+  grid-template-columns: 02fr 05fr 1fr 1fr 1fr 02fr;
+  grid-template-rows: 03fr repeat(7, 0.5fr) 2fr 1fr;
+  gap: 5px;
+  justify-items: center;
+}
+
+.database_issue {
+  border: 1px solid salmon;
 }
 
 .vol_cards {
