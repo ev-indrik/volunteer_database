@@ -16,7 +16,7 @@
   overflow: hidden;
   gap: 8px;
   grid-template-columns: 17% 1fr 23%;
-  grid-template-rows: 13% 10% 1fr 20%;
+  grid-template-rows: 13% 8% 1fr 10%;
   grid-template-areas:
     "header header header"
     ". selection-by-cities ."
@@ -131,15 +131,39 @@
   grid-area: database;
   background-color: #f3f3f3;
   border-radius: 12px;
-  display: grid;
-  grid-template-columns: 02fr 05fr 1fr 1fr 1fr 02fr;
-  grid-template-rows: 03fr repeat(7, 0.5fr) 2fr 1fr;
-  gap: 5px;
-  justify-items: center;
-}
+  display: flex;
+  flex-direction: column;
+  /* display: grid; */
+  /* grid-template-columns: 02fr 05fr 1fr 1fr 1fr 02fr; */
+  /* grid-template-rows: 03fr repeat(7, 0.5fr) 2fr 1fr; */
+  /* gap: 5px; */
+  /* justify-items: center; */
 
-.database_issue {
-  border: 1px solid salmon;
+  .table_header {
+    display: grid;
+    grid-template-columns: 02fr 05fr 1fr 1fr 1fr 02fr;
+    padding: 8px;
+    border-bottom: 1px solid #e1e1e1;
+  }
+
+  .table_container {
+    flex: 1 1 auto;
+  }
+  .table_content {
+    max-height: 48vh;
+    overflow-y: auto;
+
+    .database_item {
+      display: grid;
+      grid-template-columns: 02fr 05fr 1fr 1fr 1fr 02fr;
+      border-bottom: 1px solid #e1e1e1;
+      padding: 8px;
+      font-size: 14px;
+    }
+  }
+  .table_footer {
+    border: 1px solid blue;
+  }
 }
 
 .vol_cards {
