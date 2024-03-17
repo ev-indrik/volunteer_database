@@ -64,15 +64,15 @@
 
 .search_form {
   color: #b3b3b3;
-  font-size: 16px;
+  font-size: 14px;
   padding-bottom: 10px;
 
   .search_field {
     background-color: #ffffff;
     display: flex;
-    border-radius: 12px;
+    border-radius: 8px;
     width: 320px;
-    height: 40px;
+    height: 32px;
     align-items: center;
 
     .search_glass_logo {
@@ -84,13 +84,6 @@
 .search-input {
   text-indent: 10px;
 }
-
-/* .search-input::placeholder {
-  background-image: url("./resources/Icons.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  padding-left: 10px;
-} */
 
 .selection_by_cities {
   grid-area: selection-by-cities;
@@ -142,17 +135,16 @@
   border-radius: 12px;
   display: flex;
   flex-direction: column;
-  /* display: grid; */
-  /* grid-template-columns: 02fr 05fr 1fr 1fr 1fr 02fr; */
-  /* grid-template-rows: 03fr repeat(7, 0.5fr) 2fr 1fr; */
-  /* gap: 5px; */
-  /* justify-items: center; */
 
   .table_header {
     display: grid;
-    grid-template-columns: 02fr 05fr 1fr 1fr 1fr 02fr;
-    padding: 8px;
+    grid-template-columns: 50px 20% 25% 1fr 20% 30px;
     border-bottom: 1px solid #e1e1e1;
+
+    .header_item {
+      font-size: 10px;
+      padding: 6px;
+    }
   }
 
   .table_container {
@@ -161,17 +153,55 @@
   .table_content {
     max-height: 48vh;
     overflow-y: auto;
+    overflow-x: hidden;
 
-    .database_item {
+    .database_row {
       display: grid;
-      grid-template-columns: 02fr 05fr 1fr 1fr 1fr 02fr;
+      grid-template-columns: 50px 20% 25% 1fr 20% 30px;
       border-bottom: 1px solid #e1e1e1;
-      padding: 8px;
-      font-size: 14px;
+      font-size: 12px;
+
+      .database_item {
+        display: flex;
+        align-items: center;
+        padding: 6px;
+        inline-size: 100%;
+        overflow-wrap: break-word;
+
+        .avatar {
+          height: 28px;
+          min-height: 28px;
+          width: 28px;
+          min-width: 28px;
+          border-radius: 14px;
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+      }
+
+      .phone {
+        font-size: 12px;
+      }
     }
   }
   .table_footer {
-    border: 1px solid blue;
+    min-height: 50px;
+    border-top: 1px solid #d3d3d3;
+    display: flex;
+    align-items: center;
+
+    .footer_btn {
+      background-color: #2e527d;
+      border-radius: 8px;
+      padding: 6px 10px;
+      color: #ffffff;
+      font-size: 12px;
+      margin-left: 10px;
+    }
   }
 }
 
