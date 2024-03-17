@@ -66,22 +66,31 @@
   color: #b3b3b3;
   font-size: 16px;
   padding-bottom: 10px;
+
+  .search_field {
+    background-color: #ffffff;
+    display: flex;
+    border-radius: 12px;
+    width: 320px;
+    height: 40px;
+    align-items: center;
+
+    .search_glass_logo {
+      padding: 8px 0px 0px 8px;
+    }
+  }
 }
 
 .search-input {
-  width: 320px;
-  height: 40px;
-  border-radius: 12px;
-  align-self: first baseline;
-  text-indent: 20px;
+  text-indent: 10px;
 }
 
-.search-input::placeholder {
+/* .search-input::placeholder {
   background-image: url("./resources/Icons.svg");
   background-size: contain;
   background-repeat: no-repeat;
   padding-left: 10px;
-}
+} */
 
 .selection_by_cities {
   grid-area: selection-by-cities;
@@ -164,6 +173,20 @@
   .table_footer {
     border: 1px solid blue;
   }
+}
+
+#style-2::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+#style-2::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f5;
+}
+
+#style-2::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.176);
+  background-color: #f3f3f3;
 }
 
 .vol_cards {

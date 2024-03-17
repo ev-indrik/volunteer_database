@@ -24,15 +24,25 @@
           <div class="database_name">
             <div class="name_wrapper"><h1>Volunteers DB</h1></div>
             <div class="search_form">
-              <p class="search-title">Search be name</p>
-              <form action="#" method="get">
-                <input
-                  type="text"
-                  name="search"
-                  class="search-input"
-                  placeholder="Text"
-                />
-              </form>
+              <p class="search-title">Search by name</p>
+              <div class="search_field">
+                <div class="search_image">
+                  <img
+                    class="search_glass_logo"
+                    src="./resources/Icons.svg"
+                    alt="search"
+                  />
+                </div>
+                <form action="#" method="get">
+                  <input
+                    type="text"
+                    name="search"
+                    class="search-input"
+                    placeholder="Text"
+                    autocomplete="off"
+                  />
+                </form>
+              </div>
             </div>
           </div>
         </header>
@@ -128,7 +138,7 @@
           </div>
 
           <div class="table_container">
-            <div class="table_content">
+            <div id="style-2" class="table_content">
               <div class="database_item">
                 <div class="database_issue avatar">avatar</div>
                 <div class="database_issue name">Name Surname</div>
