@@ -16,7 +16,7 @@
   overflow: hidden;
   gap: 8px;
   grid-template-columns: 17% 1fr 23%;
-  grid-template-rows: 13% 8% 1fr 10%;
+  grid-template-rows: 11% 8% 1fr 12%;
   grid-template-areas:
     "header header header"
     ". selection-by-cities selected-heading"
@@ -36,8 +36,8 @@
 
 .footer_logo {
   position: relative;
-  width: 88px;
-  height: 85px;
+  width: 78px;
+  height: 74px;
   margin-left: 17px;
 }
 
@@ -102,7 +102,7 @@
   border-color: #d3d3d3;
   border-radius: 8px;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 24px;
 }
@@ -137,7 +137,7 @@
   width: 100%;
   height: 32px;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
 }
 
@@ -321,5 +321,55 @@
 .total {
   grid-area: total-info-area;
   border-radius: 12px;
+  font-size: 14px;
   background: #f3f3f3;
+  display: grid;
+  grid-template-columns: 0.25fr 0.8fr 0.3fr;
+
+  .total_volNumbers {
+    grid-column: 2;
+    margin-top: 8px;
+
+    .list_total_item {
+      display: flex;
+      justify-content: space-between;
+      width: 220px;
+      border: 1px solid #b3b3b3;
+      background-color: #ffffff;
+      border-radius: 4px;
+      margin: 3px 0px 3px 10px;
+      font-size: 12px;
+      padding: 1px 4px 1px 4px;
+    }
+  }
+
+  .total_volDonations {
+    grid-column: 3;
+
+    .total_donations_window {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      background-color: #ffffff;
+      border-radius: 8px;
+      margin-top: 8px;
+      margin-right: 8px;
+
+      .button_total_donations {
+        background-color: #2e527d;
+        border-radius: 8px;
+        padding: 6px 10px;
+        color: #ffffff;
+        font-size: 12px;
+
+        margin-right: 4px;
+      }
+
+      .total_donations_result {
+        padding: 6px 10px;
+        font-size: 12px;
+        text-align: end;
+      }
+    }
+  }
 }
