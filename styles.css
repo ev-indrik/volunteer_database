@@ -19,7 +19,7 @@
   grid-template-rows: 13% 8% 1fr 10%;
   grid-template-areas:
     "header header header"
-    ". selection-by-cities ."
+    ". selection-by-cities selected-heading"
     "selection-zone database vl_cards"
     "total-info-area total-info-area total-info-area";
 }
@@ -129,6 +129,18 @@
   padding: 10px 0px 0px 15px;
 }
 
+.selected_heading {
+  grid-area: selected-heading;
+  align-self: end;
+  margin-left: 10px;
+  padding-top: 5px;
+  width: 100%;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
 .database {
   grid-area: database;
   background-color: #f3f3f3;
@@ -166,7 +178,8 @@
         align-items: center;
         padding: 6px;
         inline-size: 100%;
-        overflow-wrap: break-word;
+        word-break: break-all;
+        /* overflow-wrap: break-word; */
 
         .avatar {
           height: 28px;
@@ -222,7 +235,84 @@
 .vol_cards {
   grid-area: vl_cards;
   border-radius: 12px;
-  background: #f1f1f1;
+  margin-left: 10px;
+
+  .cards_container {
+    padding-right: 5px;
+    display: grid;
+    grid-template-columns: 1hr;
+    align-items: start;
+    row-gap: 5px;
+
+    .card {
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      font-size: 12px;
+      box-shadow: 1px 2px 4px #0000001a;
+      border-radius: 12px;
+
+      .upper_card_info {
+        min-height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #e1e1e1;
+        padding: 5px 12px;
+
+        .card_name_info {
+          display: flex;
+          align-items: center;
+
+          .avatar {
+            height: 28px;
+            min-height: 28px;
+            margin-right: 5px;
+            width: 28px;
+            min-width: 28px;
+            border-radius: 14px;
+            overflow: hidden;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+            }
+          }
+        }
+
+        .card_checkbox {
+          min-width: 15px;
+          justify-content: center;
+        }
+      }
+
+      .lower_card_info {
+        min-height: 50px;
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 12px;
+
+        .card_address_info {
+          .p {
+            white-space: pre-line;
+          }
+
+          .contact_info_text {
+            color: #a1a1a1;
+            font-size: 10px;
+          }
+        }
+      }
+
+      .card_total_donation_info {
+        .total_sum_text {
+          padding-top: 5px;
+          font-weight: 500;
+          text-align: end;
+        }
+      }
+    }
+  }
 }
 
 .total {
