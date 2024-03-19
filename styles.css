@@ -10,6 +10,12 @@
   color: #000000;
 }
 
+.active {
+  border-color: #000000;
+  background-color: #002d63;
+  cursor: default;
+}
+
 .grid_container {
   flex: 1 1 auto;
   display: grid;
@@ -108,7 +114,7 @@
 }
 
 .city:hover {
-  border-color: #000000;
+  border-color: #bab3b3;
   background-color: #e8f2f6;
   cursor: default;
 }
