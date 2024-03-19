@@ -11,9 +11,15 @@
 }
 
 .active {
-  border-color: #000000;
-  background-color: #002d63;
-  cursor: default;
+  border-color: #585151;
+  background-color: #a5b5c8;
+  color: #ffffff;
+}
+
+.city.active:hover {
+  border-color: #585151;
+  background-color: #a5b5c8;
+  color: #ffffff;
 }
 
 .grid_container {
