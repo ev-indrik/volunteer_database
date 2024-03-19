@@ -97,6 +97,27 @@
   text-indent: 10px;
 }
 
+.login_icon {
+  justify-self: end;
+  margin-right: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d9d9d9;
+  height: 44px;
+  min-height: 44px;
+  width: 44px;
+  min-width: 44px;
+  border-radius: 22px;
+  overflow: hidden;
+
+  .login_icon_img {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+  }
+}
+
 .selection_by_cities {
   grid-area: selection-by-cities;
   display: grid;
