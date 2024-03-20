@@ -97,6 +97,12 @@
   text-indent: 10px;
 }
 
+.login_wrapper {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .login_icon {
   justify-self: end;
   margin-right: 17px;
@@ -116,6 +122,36 @@
     height: 50%;
     object-fit: contain;
   }
+}
+
+.pop_up {
+  display: flex;
+  opacity: 0;
+  background-color: #ffffff;
+  position: absolute;
+  right: 10px;
+  top: 48px;
+  min-width: 65px;
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 1px 2px 4px #0000001a;
+}
+
+.pop_up_login_img {
+  width: 30%;
+  margin-right: 5px;
+}
+
+.active02 {
+  opacity: 1;
+  transition: all 0.1s ease;
+}
+
+.login_icon:hover {
+  border-color: #646262;
+  background-color: #e8f2f6;
+  cursor: pointer;
 }
 
 .selection_by_cities {
@@ -367,7 +403,6 @@
       display: flex;
       justify-content: space-between;
       width: 220px;
-      border: 1px solid #b3b3b3;
       background-color: #ffffff;
       border-radius: 4px;
       margin: 3px 0px 3px 10px;
