@@ -1,3 +1,6 @@
+let isLogin = false;
+localStorage.setItem("isLogin", isLogin);
+
 const cities = document.querySelectorAll(".city");
 
 cities.forEach(function (city) {
@@ -12,11 +15,13 @@ cities.forEach(function (city) {
 const loginIcon = document.querySelector(".login_icon");
 const popUp = document.querySelector(".pop_up");
 
-let isLogin = false;
-
 loginIcon.addEventListener("click", () => {
-  popUp.classList.add("active02");
+  popUp.classList.toggle("active02");
 });
+
+// popUp.addEventListener("click", () => {
+//   popUp.classList.remove("active02");
+// });
 
 // loginIcon.addEventListener("click", () => {
 //   popUp.classList.add("active02");
