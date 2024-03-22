@@ -124,6 +124,10 @@
   }
 }
 
+.logged_in_user {
+  border: 1px solid orangered;
+}
+
 .pop_up {
   display: flex;
   opacity: 0;
