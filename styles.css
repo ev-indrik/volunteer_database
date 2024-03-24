@@ -125,7 +125,10 @@
 }
 
 .logged_in_user {
-  border: 1px solid orangered;
+  .login_icon_img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .pop_up {
@@ -153,8 +156,6 @@
 }
 
 .login_icon:hover {
-  border-color: #646262;
-  background-color: #e8f2f6;
   cursor: pointer;
 }
 
