@@ -28,5 +28,6 @@ volonteers.forEach((volunteer) => {
                 </div>
               </div>
 `;
+
   table_cards_content.insertAdjacentHTML("beforeend", volunteerCard);
 });
