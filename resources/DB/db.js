@@ -1,6 +1,4 @@
-import { Volonteers } from "./vol_types";
-
-export const volonteers: Volonteers = [
+const volonteers = [
   {
     id: "vln01",
     firstName: "John",
@@ -11,6 +9,7 @@ export const volonteers: Volonteers = [
     country: "Sweden",
     sex: "male",
     phone: "+38004558887",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2023-11-01"), amount: 2000 },
       { date: new Date(), amount: 8000 },
@@ -33,6 +32,7 @@ export const volonteers: Volonteers = [
     country: "UK",
     sex: "male",
     phone: "+38004974887",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2023-02-09"), amount: 25487 },
       { date: new Date(), amount: 32587 },
@@ -55,6 +55,7 @@ export const volonteers: Volonteers = [
     country: "Poland",
     sex: "female",
     phone: "+38031454",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2023-08-09"), amount: 25487 },
       { date: new Date("2024-01-05"), amount: 32587 },
@@ -78,6 +79,7 @@ export const volonteers: Volonteers = [
     country: "England",
     sex: "female",
     phone: "+3803581454",
+    email: "hello@world.com",
     donation: [{ date: new Date(), amount: 950000 }],
     isAvailable: true,
     isHasAnimalRescueExperience: false,
@@ -97,6 +99,7 @@ export const volonteers: Volonteers = [
     country: "Sweden",
     sex: "female",
     phone: "+38035468854",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2022-06-11"), amount: 7487 },
       { date: new Date("2022-03-02"), amount: 10000 },
@@ -121,6 +124,7 @@ export const volonteers: Volonteers = [
     country: "England",
     sex: "male",
     phone: "+380222468854",
+    email: "hello@world.com",
     donation: [],
     isAvailable: true,
     isHasAnimalRescueExperience: true,
@@ -140,6 +144,7 @@ export const volonteers: Volonteers = [
     country: "Poland",
     sex: "female",
     phone: "+385654558887",
+    email: "hello@world.com",
     donation: [{ date: new Date(), amount: 3267 }],
     isAvailable: false,
     isHasAnimalRescueExperience: true,
@@ -159,6 +164,7 @@ export const volonteers: Volonteers = [
     country: "Ukraine",
     sex: "male",
     phone: "+3807812350",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2023-11-01"), amount: 500 },
       { date: new Date(), amount: 8920 },
@@ -181,6 +187,7 @@ export const volonteers: Volonteers = [
     country: "Ukraine",
     sex: "female",
     phone: "+380045748887",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2022-02-22"), amount: 10000 },
       { date: new Date("2023-06-08"), amount: 20000 },
@@ -204,6 +211,7 @@ export const volonteers: Volonteers = [
     country: "Poland",
     sex: "male",
     phone: "+38099887",
+    email: "hello@world.com",
     donation: [{ date: new Date(), amount: 3267 }],
     isAvailable: true,
     isHasAnimalRescueExperience: false,
@@ -223,6 +231,7 @@ export const volonteers: Volonteers = [
     country: "Ukraine",
     sex: "male",
     phone: "+38004500887",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2022-03-01"), amount: 55000 },
       { date: new Date("2022-11-01"), amount: 23000 },
@@ -247,6 +256,7 @@ export const volonteers: Volonteers = [
     country: "Poland",
     sex: "male",
     phone: "+380124558887",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2023-03-01"), amount: 20000 },
       { date: new Date(), amount: 35000 },
@@ -269,6 +279,7 @@ export const volonteers: Volonteers = [
     country: "Ukraine",
     sex: "female",
     phone: "+38004558222",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2023-08-01"), amount: 200 },
       { date: new Date("2023-11-01"), amount: 9000 },
@@ -292,6 +303,7 @@ export const volonteers: Volonteers = [
     country: "UK",
     sex: "male",
     phone: "+3800687152",
+    email: "hello@world.com",
     donation: [{ date: new Date("2023-11-01"), amount: 6000 }],
     isAvailable: true,
     isHasAnimalRescueExperience: true,
@@ -311,6 +323,7 @@ export const volonteers: Volonteers = [
     country: "Sweden",
     sex: "male",
     phone: "+38004567487",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2022-03-01"), amount: 1000000 },
       { date: new Date("2022-06-01"), amount: 950000 },
@@ -338,6 +351,7 @@ export const volonteers: Volonteers = [
     country: "UK",
     sex: "female",
     phone: "+380244558887",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2023-11-26"), amount: 56934 },
       { date: new Date(), amount: 9125 },
@@ -360,6 +374,7 @@ export const volonteers: Volonteers = [
     country: "Ukraine",
     sex: "female",
     phone: "+38004554448",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2022-10-24"), amount: 10000 },
       { date: new Date(), amount: 5000 },
@@ -382,6 +397,7 @@ export const volonteers: Volonteers = [
     country: "England",
     sex: "female",
     phone: "+38872558887",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2022-02-22"), amount: 2000 },
       { date: new Date("2022-03-18"), amount: 500 },
@@ -409,6 +425,7 @@ export const volonteers: Volonteers = [
     country: "Ukraine",
     sex: "female",
     phone: "+38003574",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2023-12-01"), amount: 8750 },
       { date: new Date(), amount: 10000 },
@@ -431,6 +448,7 @@ export const volonteers: Volonteers = [
     country: "Poland",
     sex: "male",
     phone: "+38004500887",
+    email: "hello@world.com",
     donation: [{ date: new Date(), amount: 250000 }],
     isAvailable: true,
     isHasAnimalRescueExperience: true,
@@ -450,6 +468,7 @@ export const volonteers: Volonteers = [
     country: "England",
     sex: "male",
     phone: "+3800428887",
+    email: "hello@world.com",
     donation: [
       { date: new Date("2022-11-04"), amount: 820000 },
       { date: new Date(), amount: 940000 },
