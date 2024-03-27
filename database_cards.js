@@ -1,21 +1,21 @@
-import { volonteers } from "./vol_list.ts";
-const db = "./resources/";
-
 const table_cards_content = document.querySelector(".table_content");
-
-console.log(table_cards_content);
 
 function createVolunteerCard(volunteer) {
   const card = document.createElement("div");
   card.classList.add("database_row");
 
-  // Створюємо елементи для кожного поля волонтера та заповнюємо їх даними
+  // We create elements for each field of the volunteer and fill them with data
+
+  const photoDiv = document.createElement("div");
+  photoDiv.classList.add("database_item");
+
   const avatarDiv = document.createElement("div");
-  avatarDiv.classList.add("database_item");
+  avatarDiv.classList.add("avatar");
   const avatarImg = document.createElement("img");
   avatarImg.src = volunteer.avatar;
   avatarImg.alt = "Volunteer Avatar";
   avatarDiv.appendChild(avatarImg);
+  photoDiv.appendChild(avatarDiv);
 
   const nameDiv = document.createElement("div");
   nameDiv.classList.add("database_item");
@@ -41,20 +41,18 @@ function createVolunteerCard(volunteer) {
   checkboxInput.value = "";
   checkboxDiv.appendChild(checkboxInput);
 
-  // Додаємо створені елементи до картки
-  card.appendChild(avatarDiv);
+  // we add created elements in card
+  card.appendChild(photoDiv);
   card.appendChild(nameDiv);
   card.appendChild(emailDiv);
   card.appendChild(addressDiv);
   card.appendChild(phoneDiv);
   card.appendChild(checkboxDiv);
 
-  console.log(volonteers);
-
   return card;
 }
 
-// Проходимось по списку волонтерів та створюємо для кожного картку
+// We iterate through the list of volunteers and create a card for each one
 volonteers.forEach((volunteer) => {
   const volunteerCard = createVolunteerCard(volunteer);
   table_cards_content.appendChild(volunteerCard);
