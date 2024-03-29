@@ -43,7 +43,7 @@ const volonteers = [
     isHasMedicalExperience: true,
     isHasPsychologicalExperience: true,
     isHasVetExperience: false,
-    isSelected: false,
+    isSelected: true,
   },
   {
     id: "vln03",
@@ -87,7 +87,7 @@ const volonteers = [
     isHasMedicalExperience: true,
     isHasPsychologicalExperience: true,
     isHasVetExperience: false,
-    isSelected: false,
+    isSelected: true,
   },
   {
     id: "vln05",
@@ -112,7 +112,7 @@ const volonteers = [
     isHasMedicalExperience: true,
     isHasPsychologicalExperience: true,
     isHasVetExperience: false,
-    isSelected: false,
+    isSelected: true,
   },
   {
     id: "vln06",

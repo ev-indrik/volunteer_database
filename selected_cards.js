@@ -1,7 +1,9 @@
 const selected_cards_area = document.querySelector(".cards_container");
 
-const selectedVolCard = `
-<div class="card">
+volonteers.forEach((it) => {
+  if (it.isSelected) {
+    const selectedVolCard = `
+        <div class="card">
               <div class="upper_card_info">
                 <div class="card_name_info">
                   <div class="avatar">
@@ -28,6 +30,16 @@ const selectedVolCard = `
                 </div>
               </div>
             </div>
-`;
+        `;
 
-selected_cards_area.insertAdjacentHTML("beforeend", selectedVolCard);
+    selected_cards_area.insertAdjacentHTML("beforeend", selectedVolCard);
+  }
+});
+
+// selectedVol.addEventListener("change", function () {
+//   if (this.checked) {
+//     selected_cards_area.insertAdjacentHTML("beforeend", selectedVolCard);
+//   } else {
+//     console.log("Checkbox is unchecked");
+//   }
+// });

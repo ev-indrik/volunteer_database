@@ -24,7 +24,7 @@ volonteers.forEach((volunteer) => {
                   <p>${volunteer.phone}</p>
                 </div>
                 <div class="database_item checkbox_cell">
-                  <input type="checkbox" name="available" value="" />
+                  <input id=${volunteer.id} type="checkbox" name="available" value="" />
                 </div>
               </div>
 `;
