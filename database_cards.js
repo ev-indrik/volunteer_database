@@ -36,9 +36,13 @@ function createVolunteerCard(volunteer) {
   const checkboxDiv = document.createElement("div");
   checkboxDiv.classList.add("database_item", "checkbox_cell");
   const checkboxInput = document.createElement("input");
-  checkboxInput.type = "checkbox";
-  checkboxInput.name = "available";
   checkboxInput.value = "";
+  checkboxInput.setAttribute("userId", volunteer.id);
+  checkboxInput.setAttribute("type", "checkbox");
+  checkboxInput.addEventListener("click", () => {
+    console.log("click bla");
+    console.log(volunteer.id);
+  });
   checkboxDiv.appendChild(checkboxInput);
 
   // we add created elements in card
@@ -53,7 +57,9 @@ function createVolunteerCard(volunteer) {
 }
 
 // We iterate through the list of volunteers and create a card for each one
-volonteers.forEach((volunteer) => {
-  const volunteerCard = createVolunteerCard(volunteer);
-  table_cards_content.appendChild(volunteerCard);
-});
+// volonteers.forEach((volunteer) => {
+//   const volunteerCard = createVolunteerCard(volunteer);
+//   table_cards_content.appendChild(volunteerCard);
+// });
+
+// realized via db.js, not json

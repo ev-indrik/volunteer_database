@@ -20,7 +20,7 @@
     "isHasMedicalExperience": true,
     "isHasPsychologicalExperience": false,
     "isHasVetExperience": true,
-    "isSelected": false
+    "isSelected": true
   },
   {
     "id": "vln02",
