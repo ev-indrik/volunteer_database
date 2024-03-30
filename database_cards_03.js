@@ -26,13 +26,6 @@ async function app() {
     });
   }
 
-  //   function volunteersRender(resultDB) {
-  //     resultDB?.forEach((it) => {
-  //       const createdVolCard = createVolunteerCard(it);
-  //       table_cards_content.appendChild(createdVolCard);
-  //     });
-  //   }
-
   function createSelectedVolunteerCard(volunteer) {
     const selectedVolCardDiv = document.createElement("div");
     selectedVolCardDiv.classList.add("card");
@@ -49,7 +42,7 @@ async function app() {
     <p>${volunteer.firstName} ${volunteer.secondName}</p>
     </div>
     <div class="card_checkbox">
-    <input type="checkbox" name="selected02" value="" />
+    <input type="checkbox" name="selected02" value="" checked disabled />
     </div>
     </div>
     <div class="lower_card_info">
@@ -74,10 +67,6 @@ async function app() {
   function createVolunteerCard(volunteer) {
     const card = document.createElement("div");
     card.classList.add("database_row");
-
-    if (volunteer.isSelected) {
-      card.classList.add("card_selected");
-    }
 
     // We create elements for each field of the volunteer and fill them with data
 
@@ -114,8 +103,12 @@ async function app() {
     checkboxInput.value = "";
     checkboxInput.setAttribute("userId", volunteer.id);
     checkboxInput.setAttribute("type", "checkbox");
-    checkboxInput.addEventListener("click", () => {
-      console.log(volunteer.id);
+    checkboxInput.addEventListener("change", () => {
+      card.classList.toggle("card_selected");
+
+      selectUser(volunteer.id);
+
+      // volunteersRender(newDB);
     });
     checkboxDiv.appendChild(checkboxInput);
 
@@ -130,8 +123,30 @@ async function app() {
     return card;
   }
 
-  volunteersRender(resultDB);
+  function selectUser(selectedUserId) {
+    const newDB = resultDB.map((it) => {
+      if (it.id === selectedUserId && it.isSelected === false) {
+        return {
+          ...it,
+          isSelected: true,
+        };
+      }
+      if (it.id === selectedUserId && it.isSelected === true) {
+        return {
+          ...it,
+          isSelected: false,
+        };
+      } else {
+        return it;
+      }
+    });
 
+    // dbRender(newDB);
+    volunteersRender(newDB);
+  }
+
+  // default render
+  volunteersRender(resultDB);
   //
 }
 

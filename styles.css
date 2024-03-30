@@ -325,9 +325,10 @@
   margin-left: 10px;
 
   .cards_container {
+    min-height: 100%;
     padding-right: 5px;
-    display: grid;
-    grid-template-columns: 1hr;
+    display: flex;
+    flex-direction: column;
     align-items: start;
     row-gap: 5px;
     max-height: 62vh;
@@ -336,6 +337,7 @@
 
     .card {
       min-height: 100px;
+      width: 100%;
       display: flex;
       flex-direction: column;
       font-size: 12px;
