@@ -20,7 +20,7 @@
     "isHasMedicalExperience": true,
     "isHasPsychologicalExperience": false,
     "isHasVetExperience": true,
-    "isSelected": true
+    "isSelected": false
   },
   {
     "id": "vln02",
@@ -43,7 +43,7 @@
     "isHasMedicalExperience": true,
     "isHasPsychologicalExperience": true,
     "isHasVetExperience": false,
-    "isSelected": true
+    "isSelected": false
   },
   {
     "id": "vln03",
@@ -87,7 +87,7 @@
     "isHasMedicalExperience": true,
     "isHasPsychologicalExperience": true,
     "isHasVetExperience": false,
-    "isSelected": true
+    "isSelected": false
   },
   {
     "id": "vln05",
@@ -112,7 +112,7 @@
     "isHasMedicalExperience": true,
     "isHasPsychologicalExperience": true,
     "isHasVetExperience": false,
-    "isSelected": true
+    "isSelected": false
   },
   {
     "id": "vln06",
