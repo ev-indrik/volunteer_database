@@ -6,7 +6,7 @@ function clearContent() {
   table_cards_content.innerHTML = "";
 }
 
-renderPlaceholder();
+// renderPlaceholder();
 
 async function app() {
   async function fetchDatabase() {
