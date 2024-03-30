@@ -1,6 +1,13 @@
 const table_cards_content = document.querySelector(".table_content");
 const selected_cards_area = document.querySelector(".cards_container");
 
+function clearContent() {
+  selected_cards_area.innerHTML = "";
+  table_cards_content.innerHTML = "";
+}
+
+renderPlaceholder();
+
 async function app() {
   async function fetchDatabase() {
     try {
@@ -13,7 +20,12 @@ async function app() {
   }
   const resultDB = await fetchDatabase();
 
+  //initial state for database
+  let currentDB = [...resultDB];
+
   function volunteersRender(resultDB) {
+    clearContent();
+
     resultDB.forEach((volunteer) => {
       const volunteerCard = createVolunteerCard(volunteer);
       const selectedVolunteerCard = createSelectedVolunteerCard(volunteer);
@@ -103,12 +115,15 @@ async function app() {
     checkboxInput.value = "";
     checkboxInput.setAttribute("userId", volunteer.id);
     checkboxInput.setAttribute("type", "checkbox");
-    checkboxInput.addEventListener("change", () => {
+    if (volunteer.isSelected) {
+      checkboxInput.checked = true;
       card.classList.toggle("card_selected");
+    } else {
+      checkboxInput.checked = false;
+    }
 
+    checkboxInput.addEventListener("change", () => {
       selectUser(volunteer.id);
-
-      // volunteersRender(newDB);
     });
     checkboxDiv.appendChild(checkboxInput);
 
@@ -124,7 +139,7 @@ async function app() {
   }
 
   function selectUser(selectedUserId) {
-    const newDB = resultDB.map((it) => {
+    const newCurrentDB = currentDB.map((it) => {
       if (it.id === selectedUserId && it.isSelected === false) {
         return {
           ...it,
@@ -141,13 +156,21 @@ async function app() {
       }
     });
 
-    // dbRender(newDB);
-    volunteersRender(newDB);
+    //TO DO: set db to local storage
+
+    currentDB = [...newCurrentDB];
+    volunteersRender(currentDB);
   }
 
   // default render
-  volunteersRender(resultDB);
+  volunteersRender(currentDB);
   //
 }
 
-app().then();
+function renderPlaceholder() {
+  clearContent();
+  const dbPlaceholder = document.createElement("div");
+  dbPlaceholder.classList.add("dbplaceholder");
+  dbPlaceholder.innerText = "hello world. No base. Please login";
+  table_cards_content.appendChild(dbPlaceholder);
+}

@@ -4,18 +4,32 @@ const popUp = document.querySelector(".pop_up");
 const popUpText = popUp.querySelector("p");
 const loginIconImg = document.getElementById("login_icon_img");
 
-localStorage.setItem("isLogin", isLogin);
+function checkIsLogin() {
+  const isUserLogin = localStorage.getItem("isLogin");
+  if (isUserLogin) {
+    isLogin = true;
+    loginIcon.classList.add("logged_in_user");
+    loginIconImg.src = "./resources/user_logged.jpg";
+    app().then();
+  }
+}
+
+checkIsLogin();
 
 function logIn() {
   isLogin = true;
+  localStorage.setItem("isLogin", isLogin);
   loginIcon.classList.add("logged_in_user");
   loginIconImg.src = "./resources/user_logged.jpg";
+  app().then();
 }
 
 function logOut() {
   isLogin = false;
+  localStorage.clear();
   loginIcon.classList.remove("logged_in_user");
   loginIconImg.src = "./resources/User_02.svg";
+  renderPlaceholder();
 }
 
 const cities = document.querySelectorAll(".city");
