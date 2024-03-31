@@ -32,16 +32,6 @@ function logOut() {
   renderPlaceholder();
 }
 
-const cities = document.querySelectorAll(".city");
-cities.forEach(function (city) {
-  city.addEventListener("click", function () {
-    cities.forEach(function (city) {
-      city.classList.remove("active");
-    });
-    this.classList.add("active");
-  });
-});
-
 loginIcon.addEventListener("click", (e) => {
   e.stopPropagation();
   popUp.classList.toggle("active02");

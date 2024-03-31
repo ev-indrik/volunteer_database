@@ -186,6 +186,59 @@ async function app() {
     selectedUsersRender(currentSelectedUsers);
   }
 
+  //================== FilterByCountries ========================
+
+  function filterUsersbyCity(filterkey) {
+    let targetCountry;
+
+    switch (filterkey) {
+      case "ua":
+        targetCountry = "Ukraine";
+        break;
+      case "gr":
+        targetCountry = "Germany";
+        break;
+      case "uk":
+        targetCountry = "UK";
+        break;
+      case "pl":
+        targetCountry = "Poland";
+        break;
+
+      default:
+        targetCountry = "Ukraine";
+        break;
+    }
+
+    if (filterkey !== "all") {
+      const filteredUsers = currentDB.filter((item) => {
+        return item.country === targetCountry;
+      });
+
+      volunteersRender(filteredUsers);
+    } else {
+      volunteersRender(currentDB);
+    }
+
+    // if (filterkey === "ua") {
+    //   const filteredUsers = currentDB.filter((item) => {
+    //     return item.country === "Ukraine";
+    //   });
+    //   volunteersRender(filteredUsers);
+    // }
+  }
+
+  const cities = document.querySelectorAll(".city");
+  cities.forEach(function (city) {
+    city.addEventListener("click", function () {
+      filterUsersbyCity(city.getAttribute("data"));
+      cities.forEach(function (it) {
+        it.classList.remove("active");
+      });
+      this.classList.add("active");
+    });
+  });
+
   // default render
   volunteersRender(currentDB);
   selectedUsersRender(currentSelectedUsers);
