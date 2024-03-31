@@ -19,22 +19,41 @@ async function app() {
     }
   }
   const resultDB = await fetchDatabase();
+  // const initialSelectedUsers = resultDB.filter((it) => {
+  //   return it.isSelected;
+
+  //   if (it.isSelected) {
+  //     return true;
+  //   }
+  // });
+  const initialSelectedUsers = resultDB.filter((it) => it.isSelected);
 
   //initial state for database
   let currentDB = [...resultDB];
+  let currentSelectedUsers = [...initialSelectedUsers];
 
-  function volunteersRender(resultDB) {
+  function volunteersRender(data) {
     clearContent();
 
-    resultDB.forEach((volunteer) => {
+    data.forEach((volunteer) => {
       const volunteerCard = createVolunteerCard(volunteer);
-      const selectedVolunteerCard = createSelectedVolunteerCard(volunteer);
-      if (volunteer.isSelected) {
-        selected_cards_area.appendChild(selectedVolunteerCard);
-        table_cards_content.appendChild(volunteerCard);
-      } else {
-        table_cards_content.appendChild(volunteerCard);
-      }
+      // const selectedVolunteerCard = createSelectedVolunteerCard(volunteer);
+      // if (volunteer.isSelected) {
+      //   selected_cards_area.appendChild(selectedVolunteerCard);
+      //   table_cards_content.appendChild(volunteerCard);
+      // } else {
+      //   table_cards_content.appendChild(volunteerCard);
+      // }
+      table_cards_content.appendChild(volunteerCard);
+    });
+  }
+
+  function selectedUsersRender(data) {
+    selected_cards_area.innerHTML = "";
+
+    data.forEach((it) => {
+      const selectedVolunteerCard = createSelectedVolunteerCard(it);
+      selected_cards_area.appendChild(selectedVolunteerCard);
     });
   }
 
@@ -141,12 +160,16 @@ async function app() {
   function selectUser(selectedUserId) {
     const newCurrentDB = currentDB.map((it) => {
       if (it.id === selectedUserId && it.isSelected === false) {
+        currentSelectedUsers.push(it);
         return {
           ...it,
           isSelected: true,
         };
       }
       if (it.id === selectedUserId && it.isSelected === true) {
+        currentSelectedUsers = currentSelectedUsers.filter(
+          (item) => item.id !== selectedUserId
+        );
         return {
           ...it,
           isSelected: false,
@@ -160,10 +183,12 @@ async function app() {
 
     currentDB = [...newCurrentDB];
     volunteersRender(currentDB);
+    selectedUsersRender(currentSelectedUsers);
   }
 
   // default render
   volunteersRender(currentDB);
+  selectedUsersRender(currentSelectedUsers);
   //
 }
 

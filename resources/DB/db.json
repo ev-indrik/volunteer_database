@@ -20,7 +20,7 @@
     "isHasMedicalExperience": true,
     "isHasPsychologicalExperience": false,
     "isHasVetExperience": true,
-    "isSelected": false
+    "isSelected": true
   },
   {
     "id": "vln02",
@@ -67,7 +67,7 @@
     "isHasMedicalExperience": true,
     "isHasPsychologicalExperience": true,
     "isHasVetExperience": false,
-    "isSelected": false
+    "isSelected": true
   },
   {
     "id": "vln04",
