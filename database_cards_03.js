@@ -6,7 +6,7 @@ function clearContent() {
   table_cards_content.innerHTML = "";
 }
 
-// renderPlaceholder();
+renderPlaceholder();
 
 async function app() {
   async function fetchDatabase() {
@@ -169,8 +169,27 @@ async function app() {
 
 function renderPlaceholder() {
   clearContent();
-  const dbPlaceholder = document.createElement("div");
-  dbPlaceholder.classList.add("dbplaceholder");
-  dbPlaceholder.innerText = "hello world. No base. Please login";
-  table_cards_content.appendChild(dbPlaceholder);
+  const cat_placeholder = document.createElement("div");
+  cat_placeholder.classList.add("cat_placeholder");
+  cat_placeholder.innerHTML = `
+                <div class="cat_placeholder_content">
+                  <div class="cat_placeholder_animation">
+                    
+                    <lottie-player
+                      src="https://lottie.host/b9bea9ed-25ed-4fa3-beb1-be41f8464380/nJSuZROa9E.json"
+                      background="transparent"
+                      speed="1"
+                      style="width: 250px; height: 250px"
+                      direction="1"
+                      mode="normal"
+                      loop
+                      autoplay
+                    ></lottie-player>
+                  </div>
+                  <div class="cat_placeholder_text">
+                    <p>Please log in</p>
+                  </div>
+                </div>
+                `;
+  table_cards_content.appendChild(cat_placeholder);
 }
