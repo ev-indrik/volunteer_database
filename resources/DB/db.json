@@ -6,7 +6,7 @@
     "avatar": "./resources/setofavatars/04.jpg",
     "age": 38,
     "address": "Street, Town",
-    "country": "Sweden",
+    "country": "Germany",
     "sex": "male",
     "phone": "+38004558887",
     "email": "hello@world.com",
@@ -20,7 +20,7 @@
     "isHasMedicalExperience": true,
     "isHasPsychologicalExperience": false,
     "isHasVetExperience": true,
-    "isSelected": false
+    "isSelected": true
   },
   {
     "id": "vln02",
@@ -67,7 +67,7 @@
     "isHasMedicalExperience": true,
     "isHasPsychologicalExperience": true,
     "isHasVetExperience": false,
-    "isSelected": false
+    "isSelected": true
   },
   {
     "id": "vln04",
@@ -96,7 +96,7 @@
     "avatar": "./resources/setofavatars/03.jpg",
     "age": 39,
     "address": "Street, Town",
-    "country": "Sweden",
+    "country": "Germany",
     "sex": "female",
     "phone": "+38035468854",
     "email": "hello@world.com",
@@ -320,7 +320,7 @@
     "avatar": "./resources/setofavatars/02.jpg",
     "age": 32,
     "address": "Street, Town",
-    "country": "Sweden",
+    "country": "Germany",
     "sex": "male",
     "phone": "+38004567487",
     "email": "hello@world.com",
