@@ -91,7 +91,6 @@ async function app() {
     `;
     selectedVolCardDiv.insertAdjacentHTML("beforeend", selectedVolCard);
 
-    // selected_cards_area.insertAdjacentHTML("beforeend", selectedVolCard);
     return selectedVolCardDiv;
   }
 
@@ -186,6 +185,22 @@ async function app() {
     selectedUsersRender(currentSelectedUsers);
   }
 
+  //===============Creating arrays for filters with already selected users
+
+  function createDBforFilters(firstDB, selectedUsersDB) {
+    const selectedUsersIds = selectedUsersDB.map((it) => it.id);
+
+    const result = firstDB.filter((it) => {
+      return !selectedUsersIds.includes(it.id);
+    });
+    return [...result, ...selectedUsersDB];
+  }
+
+  // const a = [1, 2, 3, 4];
+  // console.log(a.includes("bla"));
+  // console.log(a.includes(10));
+  // console.log(a.includes(3));
+
   //================== FilterByCountries ========================
 
   function filterUsersbyCity(filterkey) {
@@ -210,14 +225,17 @@ async function app() {
         break;
     }
 
+    const filterResult = createDBforFilters(resultDB, currentSelectedUsers);
     if (filterkey !== "all") {
-      const filteredUsers = currentDB.filter((item) => {
+      currentDB = filterResult.filter((item) => {
         return item.country === targetCountry;
       });
 
-      volunteersRender(filteredUsers);
-    } else {
       volunteersRender(currentDB);
+      selectedUsersRender(currentSelectedUsers);
+    } else {
+      volunteersRender(filterResult);
+      selectedUsersRender(currentSelectedUsers);
     }
 
     // if (filterkey === "ua") {
