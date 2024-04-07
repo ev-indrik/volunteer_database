@@ -6,6 +6,10 @@ function clearContent() {
   table_cards_content.innerHTML = "";
 }
 
+function clearMainDbContent() {
+  table_cards_content.innerHTML = "";
+}
+
 renderPlaceholder();
 
 async function app() {
@@ -32,20 +36,25 @@ async function app() {
   let currentDB = [...resultDB];
   let currentSelectedUsers = [...initialSelectedUsers];
 
-  function volunteersRender(data) {
-    clearContent();
+  // filters state
+  let filteredCountry = "all";
 
-    data.forEach((volunteer) => {
+  function getFilteredDB(filteredCountryKey) {
+    if (filteredCountryKey !== "all") {
+      return currentDB.filter((it) => it.country === filteredCountryKey);
+    } else {
+      return currentDB;
+    }
+  }
+
+  function volunteersRender() {
+    clearMainDbContent();
+
+    const filteredDB = getFilteredDB(filteredCountry);
+
+    filteredDB.forEach((volunteer) => {
       const volunteerCard = createVolunteerCard(volunteer);
       table_cards_content.appendChild(volunteerCard);
-
-      // const selectedVolunteerCard = createSelectedVolunteerCard(volunteer);
-      // if (volunteer.isSelected) {
-      //   selected_cards_area.appendChild(selectedVolunteerCard);
-      //   table_cards_content.appendChild(volunteerCard);
-      // } else {
-      //   table_cards_content.appendChild(volunteerCard);
-      // }
     });
   }
 
@@ -182,7 +191,7 @@ async function app() {
     //TO DO: set db to local storage
 
     currentDB = [...newCurrentDB];
-    volunteersRender(currentDB);
+    volunteersRender();
     selectedUsersRender(currentSelectedUsers);
   }
 
@@ -196,11 +205,6 @@ async function app() {
     });
     return [...result, ...selectedUsersDB];
   }
-
-  // const a = [1, 2, 3, 4];
-  // console.log(a.includes("bla"));
-  // console.log(a.includes(10));
-  // console.log(a.includes(3));
 
   //================== FilterByCountries ========================
 
@@ -222,32 +226,17 @@ async function app() {
         break;
 
       default:
-        targetCountry = "Ukraine";
+        targetCountry = "all";
         break;
     }
 
-    const filterResult = createDBforFilters(resultDB, currentSelectedUsers);
-    if (filterkey !== "all") {
-      currentDB = filterResult.filter((item) => {
-        return item.country === targetCountry;
-      });
+    filteredCountry = targetCountry;
 
-      volunteersRender(currentDB);
-      selectedUsersRender(currentSelectedUsers);
-    } else {
-      volunteersRender(filterResult);
-      selectedUsersRender(currentSelectedUsers);
-    }
-
-    // if (filterkey === "ua") {
-    //   const filteredUsers = currentDB.filter((item) => {
-    //     return item.country === "Ukraine";
-    //   });
-    //   volunteersRender(filteredUsers);
-    // }
+    volunteersRender();
   }
 
   const cities = document.querySelectorAll(".city");
+
   cities.forEach(function (city) {
     city.addEventListener("click", function () {
       filterUsersbyCity(city.getAttribute("data"));
@@ -259,7 +248,7 @@ async function app() {
   });
 
   // default render
-  volunteersRender(currentDB);
+  volunteersRender();
   selectedUsersRender(currentSelectedUsers);
   //
 }
