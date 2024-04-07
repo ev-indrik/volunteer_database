@@ -1,10 +1,23 @@
 const table_cards_content = document.querySelector(".table_content");
 const selected_cards_area = document.querySelector(".cards_container");
+const femaleCheckbox = document.getElementById("option2");
+const driveCheckbox = document.getElementById("option3");
+const total_filtered_quantity = document.getElementById("total_filtered");
+const total_vol_quantity = document.getElementById("list_total_vol");
+const total_selected_quantity = document.getElementById("list_selected_vol");
+
+let transformFiltersToString;
 
 function clearContent() {
   selected_cards_area.innerHTML = "";
   table_cards_content.innerHTML = "";
 }
+
+function clearMainDbContent() {
+  table_cards_content.innerHTML = "";
+}
+
+//======cat page========
 
 renderPlaceholder();
 
@@ -19,33 +32,110 @@ async function app() {
     }
   }
   const resultDB = await fetchDatabase();
-  // const initialSelectedUsers = resultDB.filter((it) => {
-  //   return it.isSelected;
-
-  //   if (it.isSelected) {
-  //     return true;
-  //   }
-  // });
   const initialSelectedUsers = resultDB.filter((it) => it.isSelected);
 
   //initial state for database
   let currentDB = [...resultDB];
   let currentSelectedUsers = [...initialSelectedUsers];
 
-  function volunteersRender(data) {
-    clearContent();
+  volunteersRender();
 
-    data.forEach((volunteer) => {
+  // filters state
+  // let filteredCountry = "all";
+  let filtersStateArray = [];
+
+  function getFilteredDB(filteredCountryKey) {
+    if (filteredCountryKey !== "all") {
+      return currentDB.filter((it) => it.country === filteredCountryKey);
+    } else {
+      return currentDB;
+    }
+  }
+  //=================Filters operations
+
+  femaleCheckbox.addEventListener("change", (e) => {
+    const checkboxFilter = {
+      id: "femaleCheckbox",
+      key: "sex",
+      value: "female",
+    };
+
+    const isChecked = filtersStateArray.find(
+      (it) => it.id === "femaleCheckbox"
+    );
+
+    if (isChecked) {
+      filtersStateArray = filtersStateArray.filter(
+        (it) => it.id !== "femaleCheckbox"
+      );
+    } else {
+      filtersStateArray.push(checkboxFilter);
+    }
+
+    transformFiltersToString = filtersStateArray
+      .map((item) => {
+        if (typeof item.value === "boolean") {
+          return `it.${item.key} === ${item.value}`;
+        } else {
+          return `it.${item.key} === "${item.value}"`;
+        }
+      })
+      .join(" && ");
+
+    volunteersRender();
+  });
+
+  driveCheckbox.addEventListener("change", (e) => {
+    const checkboxFilter = {
+      id: "driveCheckbox",
+      key: "isHasDriverLicence",
+      value: true,
+    };
+
+    const isChecked = filtersStateArray.find((it) => it.id === "driveCheckbox");
+
+    if (isChecked) {
+      filtersStateArray = filtersStateArray.filter(
+        (it) => it.id !== "driveCheckbox"
+      );
+    } else {
+      filtersStateArray.push(checkboxFilter);
+    }
+
+    transformFiltersToString = filtersStateArray
+      .map((item) => {
+        if (typeof item.value === "boolean") {
+          return `it.${item.key} === ${item.value}`;
+        } else {
+          return `it.${item.key} === "${item.value}"`;
+        }
+      })
+      .join(" && ");
+
+    volunteersRender();
+  });
+
+  //=====================Rendering
+
+  function volunteersRender() {
+    clearMainDbContent();
+
+    const filteredDB = currentDB.filter((it) => {
+      if (transformFiltersToString) {
+        return eval(transformFiltersToString);
+      } else {
+        return it;
+      }
+    });
+
+    filteredDB.forEach((volunteer) => {
       const volunteerCard = createVolunteerCard(volunteer);
-      // const selectedVolunteerCard = createSelectedVolunteerCard(volunteer);
-      // if (volunteer.isSelected) {
-      //   selected_cards_area.appendChild(selectedVolunteerCard);
-      //   table_cards_content.appendChild(volunteerCard);
-      // } else {
-      //   table_cards_content.appendChild(volunteerCard);
-      // }
       table_cards_content.appendChild(volunteerCard);
     });
+
+    total_filtered_quantity.innerText = filteredDB.length;
+    total_vol_quantity.innerText = resultDB.length;
+    total_selected_quantity.innerText = currentSelectedUsers.length;
   }
 
   function selectedUsersRender(data) {
@@ -91,7 +181,6 @@ async function app() {
     `;
     selectedVolCardDiv.insertAdjacentHTML("beforeend", selectedVolCard);
 
-    // selected_cards_area.insertAdjacentHTML("beforeend", selectedVolCard);
     return selectedVolCardDiv;
   }
 
@@ -182,8 +271,19 @@ async function app() {
     //TO DO: set db to local storage
 
     currentDB = [...newCurrentDB];
-    volunteersRender(currentDB);
+    volunteersRender();
     selectedUsersRender(currentSelectedUsers);
+  }
+
+  //===============Creating arrays for filters with already selected users
+
+  function createDBforFilters(firstDB, selectedUsersDB) {
+    const selectedUsersIds = selectedUsersDB.map((it) => it.id);
+
+    const result = firstDB.filter((it) => {
+      return !selectedUsersIds.includes(it.id);
+    });
+    return [...result, ...selectedUsersDB];
   }
 
   //================== FilterByCountries ========================
@@ -206,29 +306,41 @@ async function app() {
         break;
 
       default:
-        targetCountry = "Ukraine";
+        targetCountry = "all";
         break;
     }
 
-    if (filterkey !== "all") {
-      const filteredUsers = currentDB.filter((item) => {
-        return item.country === targetCountry;
-      });
+    // filteredCountry = targetCountry;
 
-      volunteersRender(filteredUsers);
-    } else {
-      volunteersRender(currentDB);
+    const checkboxFilter = {
+      id: "countryCheckbox",
+      key: "country",
+      value: targetCountry,
+    };
+
+    filtersStateArray = filtersStateArray.filter(
+      (it) => it.id !== "countryCheckbox"
+    );
+
+    if (targetCountry !== "all") {
+      filtersStateArray.push(checkboxFilter);
     }
 
-    // if (filterkey === "ua") {
-    //   const filteredUsers = currentDB.filter((item) => {
-    //     return item.country === "Ukraine";
-    //   });
-    //   volunteersRender(filteredUsers);
-    // }
+    transformFiltersToString = filtersStateArray
+      .map((item) => {
+        if (typeof item.value === "boolean") {
+          return `it.${item.key} === ${item.value}`;
+        } else {
+          return `it.${item.key} === "${item.value}"`;
+        }
+      })
+      .join(" && ");
+
+    volunteersRender();
   }
 
   const cities = document.querySelectorAll(".city");
+
   cities.forEach(function (city) {
     city.addEventListener("click", function () {
       filterUsersbyCity(city.getAttribute("data"));
@@ -240,7 +352,7 @@ async function app() {
   });
 
   // default render
-  volunteersRender(currentDB);
+  volunteersRender();
   selectedUsersRender(currentSelectedUsers);
   //
 }

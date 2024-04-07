@@ -82,7 +82,13 @@
         <aside class="select_zone">
           <form class="search_by_params">
             <label class="label" for="option1">
-              <input type="checkbox" id="option1" name="option1" value="male" />
+              <input
+                type="checkbox"
+                id="option1"
+                name="option1"
+                value="male"
+                disabled
+              />
               Male
             </label>
             <label class="label" for="option2">
@@ -208,16 +214,16 @@
         <section class="total">
           <div class="total_volNumbers">
             <div class="list_total_item">
-              <p>Total volunteers:</p>
-              <p>48</p>
+              <p>Total Filtered:</p>
+              <p id="total_filtered">0</p>
             </div>
             <div class="list_total_item">
-              <p>Total hired:</p>
-              <p>26</p>
+              <p>Total selected:</p>
+              <p id="list_selected_vol">0</p>
             </div>
             <div class="list_total_item">
               <p>Total available:</p>
-              <p>48</p>
+              <p id="list_total_vol"></p>
             </div>
           </div>
           <div class="total_volDonations">
