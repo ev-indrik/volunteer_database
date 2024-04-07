@@ -1,5 +1,12 @@
 const table_cards_content = document.querySelector(".table_content");
 const selected_cards_area = document.querySelector(".cards_container");
+const femaleCheckbox = document.getElementById("option2");
+const driveCheckbox = document.getElementById("option3");
+const total_filtered_quantity = document.getElementById("total_filtered");
+const total_vol_quantity = document.getElementById("list_total_vol");
+const total_selected_quantity = document.getElementById("list_selected_vol");
+
+let transformFiltersToString;
 
 function clearContent() {
   selected_cards_area.innerHTML = "";
@@ -9,6 +16,8 @@ function clearContent() {
 function clearMainDbContent() {
   table_cards_content.innerHTML = "";
 }
+
+//======cat page========
 
 renderPlaceholder();
 
@@ -23,21 +32,17 @@ async function app() {
     }
   }
   const resultDB = await fetchDatabase();
-  // const initialSelectedUsers = resultDB.filter((it) => {
-  //   return it.isSelected;
-
-  //   if (it.isSelected) {
-  //     return true;
-  //   }
-  // });
   const initialSelectedUsers = resultDB.filter((it) => it.isSelected);
 
   //initial state for database
   let currentDB = [...resultDB];
   let currentSelectedUsers = [...initialSelectedUsers];
 
+  volunteersRender();
+
   // filters state
-  let filteredCountry = "all";
+  // let filteredCountry = "all";
+  let filtersStateArray = [];
 
   function getFilteredDB(filteredCountryKey) {
     if (filteredCountryKey !== "all") {
@@ -46,16 +51,91 @@ async function app() {
       return currentDB;
     }
   }
+  //=================Filters operations
+
+  femaleCheckbox.addEventListener("change", (e) => {
+    const checkboxFilter = {
+      id: "femaleCheckbox",
+      key: "sex",
+      value: "female",
+    };
+
+    const isChecked = filtersStateArray.find(
+      (it) => it.id === "femaleCheckbox"
+    );
+
+    if (isChecked) {
+      filtersStateArray = filtersStateArray.filter(
+        (it) => it.id !== "femaleCheckbox"
+      );
+    } else {
+      filtersStateArray.push(checkboxFilter);
+    }
+
+    transformFiltersToString = filtersStateArray
+      .map((item) => {
+        if (typeof item.value === "boolean") {
+          return `it.${item.key} === ${item.value}`;
+        } else {
+          return `it.${item.key} === "${item.value}"`;
+        }
+      })
+      .join(" && ");
+
+    volunteersRender();
+  });
+
+  driveCheckbox.addEventListener("change", (e) => {
+    const checkboxFilter = {
+      id: "driveCheckbox",
+      key: "isHasDriverLicence",
+      value: true,
+    };
+
+    const isChecked = filtersStateArray.find((it) => it.id === "driveCheckbox");
+
+    if (isChecked) {
+      filtersStateArray = filtersStateArray.filter(
+        (it) => it.id !== "driveCheckbox"
+      );
+    } else {
+      filtersStateArray.push(checkboxFilter);
+    }
+
+    transformFiltersToString = filtersStateArray
+      .map((item) => {
+        if (typeof item.value === "boolean") {
+          return `it.${item.key} === ${item.value}`;
+        } else {
+          return `it.${item.key} === "${item.value}"`;
+        }
+      })
+      .join(" && ");
+
+    volunteersRender();
+  });
+
+  //=====================Rendering
 
   function volunteersRender() {
     clearMainDbContent();
 
-    const filteredDB = getFilteredDB(filteredCountry);
+    const filteredDB = currentDB.filter((it) => {
+      if (transformFiltersToString) {
+        return eval(transformFiltersToString);
+      } else {
+        return it;
+      }
+    });
 
     filteredDB.forEach((volunteer) => {
       const volunteerCard = createVolunteerCard(volunteer);
       table_cards_content.appendChild(volunteerCard);
     });
+
+    total_filtered_quantity.innerText = filteredDB.length;
+    total_vol_quantity.innerText = resultDB.length;
+    total_selected_quantity.innerText = currentSelectedUsers.length;
   }
 
   function selectedUsersRender(data) {
@@ -230,7 +310,31 @@ async function app() {
         break;
     }
 
-    filteredCountry = targetCountry;
+    // filteredCountry = targetCountry;
+
+    const checkboxFilter = {
+      id: "countryCheckbox",
+      key: "country",
+      value: targetCountry,
+    };
+
+    filtersStateArray = filtersStateArray.filter(
+      (it) => it.id !== "countryCheckbox"
+    );
+
+    if (targetCountry !== "all") {
+      filtersStateArray.push(checkboxFilter);
+    }
+
+    transformFiltersToString = filtersStateArray
+      .map((item) => {
+        if (typeof item.value === "boolean") {
+          return `it.${item.key} === ${item.value}`;
+        } else {
+          return `it.${item.key} === "${item.value}"`;
+        }
+      })
+      .join(" && ");
 
     volunteersRender();
   }
