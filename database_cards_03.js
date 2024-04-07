@@ -37,6 +37,8 @@ async function app() {
 
     data.forEach((volunteer) => {
       const volunteerCard = createVolunteerCard(volunteer);
+      table_cards_content.appendChild(volunteerCard);
+
       // const selectedVolunteerCard = createSelectedVolunteerCard(volunteer);
       // if (volunteer.isSelected) {
       //   selected_cards_area.appendChild(selectedVolunteerCard);
@@ -44,7 +46,6 @@ async function app() {
       // } else {
       //   table_cards_content.appendChild(volunteerCard);
       // }
-      table_cards_content.appendChild(volunteerCard);
     });
   }
 
