@@ -1,7 +1,18 @@
+// ===== main div-es for cards rendering
+
 const table_cards_content = document.querySelector(".table_content");
 const selected_cards_area = document.querySelector(".cards_container");
+
+// side checkboxes
 const femaleCheckbox = document.getElementById("option2");
 const driveCheckbox = document.getElementById("option3");
+const doctorCheckbox = document.getElementById("option4");
+const animalRescueCheckbox = document.getElementById("option5");
+const veterinarianCheckbox = document.getElementById("option6");
+const psychologyCheckbox = document.getElementById("option7");
+const availableCheckbox = document.getElementById("option8");
+
+//=====Total amounts in footer
 const total_filtered_quantity = document.getElementById("total_filtered");
 const total_vol_quantity = document.getElementById("list_total_vol");
 const total_selected_quantity = document.getElementById("list_selected_vol");
@@ -40,8 +51,6 @@ async function app() {
 
   volunteersRender();
 
-  // filters state
-  // let filteredCountry = "all";
   let filtersStateArray = [];
 
   function getFilteredDB(filteredCountryKey) {
@@ -85,6 +94,8 @@ async function app() {
     volunteersRender();
   });
 
+  //==========
+
   driveCheckbox.addEventListener("change", (e) => {
     const checkboxFilter = {
       id: "driveCheckbox",
@@ -97,6 +108,171 @@ async function app() {
     if (isChecked) {
       filtersStateArray = filtersStateArray.filter(
         (it) => it.id !== "driveCheckbox"
+      );
+    } else {
+      filtersStateArray.push(checkboxFilter);
+    }
+
+    transformFiltersToString = filtersStateArray
+      .map((item) => {
+        if (typeof item.value === "boolean") {
+          return `it.${item.key} === ${item.value}`;
+        } else {
+          return `it.${item.key} === "${item.value}"`;
+        }
+      })
+      .join(" && ");
+
+    volunteersRender();
+  });
+
+  //
+  doctorCheckbox.addEventListener("change", (e) => {
+    const checkboxFilter = {
+      id: "doctorCheckbox",
+      key: "isHasMedicalExperience",
+      value: true,
+    };
+
+    const isChecked = filtersStateArray.find(
+      (it) => it.id === "doctorCheckbox"
+    );
+
+    if (isChecked) {
+      filtersStateArray = filtersStateArray.filter(
+        (it) => it.id !== "doctorCheckbox"
+      );
+    } else {
+      filtersStateArray.push(checkboxFilter);
+    }
+
+    transformFiltersToString = filtersStateArray
+      .map((item) => {
+        if (typeof item.value === "boolean") {
+          return `it.${item.key} === ${item.value}`;
+        } else {
+          return `it.${item.key} === "${item.value}"`;
+        }
+      })
+      .join(" && ");
+
+    volunteersRender();
+  });
+
+  //
+  animalRescueCheckbox.addEventListener("change", (e) => {
+    const checkboxFilter = {
+      id: "animalRescueCheckbox",
+      key: "isHasAnimalRescueExperience",
+      value: true,
+    };
+
+    const isChecked = filtersStateArray.find(
+      (it) => it.id === "animalRescueCheckbox"
+    );
+
+    if (isChecked) {
+      filtersStateArray = filtersStateArray.filter(
+        (it) => it.id !== "animalRescueCheckbox"
+      );
+    } else {
+      filtersStateArray.push(checkboxFilter);
+    }
+
+    transformFiltersToString = filtersStateArray
+      .map((item) => {
+        if (typeof item.value === "boolean") {
+          return `it.${item.key} === ${item.value}`;
+        } else {
+          return `it.${item.key} === "${item.value}"`;
+        }
+      })
+      .join(" && ");
+
+    volunteersRender();
+  });
+
+  //
+  veterinarianCheckbox.addEventListener("change", (e) => {
+    const checkboxFilter = {
+      id: "veterinarianCheckbox",
+      key: "isHasVetExperience",
+      value: true,
+    };
+
+    const isChecked = filtersStateArray.find(
+      (it) => it.id === "veterinarianCheckbox"
+    );
+
+    if (isChecked) {
+      filtersStateArray = filtersStateArray.filter(
+        (it) => it.id !== "veterinarianCheckbox"
+      );
+    } else {
+      filtersStateArray.push(checkboxFilter);
+    }
+
+    transformFiltersToString = filtersStateArray
+      .map((item) => {
+        if (typeof item.value === "boolean") {
+          return `it.${item.key} === ${item.value}`;
+        } else {
+          return `it.${item.key} === "${item.value}"`;
+        }
+      })
+      .join(" && ");
+
+    volunteersRender();
+  });
+
+  //
+  psychologyCheckbox.addEventListener("change", (e) => {
+    const checkboxFilter = {
+      id: "psychologyCheckbox",
+      key: "isHasPsychologicalExperience",
+      value: true,
+    };
+
+    const isChecked = filtersStateArray.find(
+      (it) => it.id === "psychologyCheckbox"
+    );
+
+    if (isChecked) {
+      filtersStateArray = filtersStateArray.filter(
+        (it) => it.id !== "psychologyCheckbox"
+      );
+    } else {
+      filtersStateArray.push(checkboxFilter);
+    }
+
+    transformFiltersToString = filtersStateArray
+      .map((item) => {
+        if (typeof item.value === "boolean") {
+          return `it.${item.key} === ${item.value}`;
+        } else {
+          return `it.${item.key} === "${item.value}"`;
+        }
+      })
+      .join(" && ");
+
+    volunteersRender();
+  });
+
+  //
+  availableCheckbox.addEventListener("change", (e) => {
+    const checkboxFilter = {
+      id: "availableCheckbox",
+      key: "isAvailable",
+      value: true,
+    };
+
+    const isChecked = filtersStateArray.find(
+      (it) => it.id === "availableCheckbox"
+    );
+
+    if (isChecked) {
+      filtersStateArray = filtersStateArray.filter(
+        (it) => it.id !== "availableCheckbox"
       );
     } else {
       filtersStateArray.push(checkboxFilter);
