@@ -9,7 +9,7 @@ function checkIsLogin() {
   if (isUserLogin) {
     isLogin = true;
     loginIcon.classList.add("logged_in_user");
-    loginIconImg.src = "./resources/user_logged.jpg";
+    loginIconImg.src = "./resources/login_user_avatar.png";
     app().then();
   }
 }
@@ -20,7 +20,7 @@ function logIn() {
   isLogin = true;
   localStorage.setItem("isLogin", isLogin);
   loginIcon.classList.add("logged_in_user");
-  loginIconImg.src = "./resources/user_logged.jpg";
+  loginIconImg.src = "./resources/login_user_avatar.png";
   app().then();
 }
 
