@@ -17,6 +17,10 @@ const total_filtered_quantity = document.getElementById("total_filtered");
 const total_vol_quantity = document.getElementById("list_total_vol");
 const total_selected_quantity = document.getElementById("list_selected_vol");
 
+//=====Yungest and oldest buttons
+const getYoungest = document.querySelector(".youngest_btn");
+const getOldest = document.querySelector(".oldest_btn");
+
 let transformFiltersToString;
 
 function clearContent() {
@@ -51,6 +55,8 @@ async function app() {
 
   volunteersRender();
 
+  //
+
   let filtersStateArray = [];
 
   function getFilteredDB(filteredCountryKey) {
@@ -60,6 +66,44 @@ async function app() {
       return currentDB;
     }
   }
+
+  // ==== youngest and oldest
+  const initialYoungButtonText = "Get the youngest volunteer";
+
+  const findYoungestVolunteer = () => {
+    const minAgeObject = currentDB.reduce((min, volunteer) => {
+      return volunteer.age < min.age ? volunteer : min;
+    }, currentDB[0]);
+
+    getYoungest.innerText = `The youngest volunteer is: ${minAgeObject.firstName} ${minAgeObject.secondName}, age: ${minAgeObject.age}`;
+  };
+
+  getYoungest.addEventListener("click", () => {
+    if (getYoungest.innerText !== initialYoungButtonText) {
+      getYoungest.innerText = initialYoungButtonText;
+    } else {
+      findYoungestVolunteer();
+    }
+  });
+
+  const initialButtonText = "Get the oldest volunteer";
+
+  const findOldestVolunteer = () => {
+    const maxAgeObject = currentDB.reduce((max, volunteer) => {
+      return volunteer.age > max.age ? volunteer : max;
+    }, currentDB[0]);
+
+    getOldest.innerText = `The most experienced volonteer: ${maxAgeObject.firstName} ${maxAgeObject.secondName}, age ${maxAgeObject.age}`;
+  };
+
+  getOldest.addEventListener("click", () => {
+    if (getOldest.innerText !== initialButtonText) {
+      getOldest.innerText = initialButtonText;
+    } else {
+      findOldestVolunteer();
+    }
+  });
+
   //=================Filters operations
 
   femaleCheckbox.addEventListener("change", (e) => {
