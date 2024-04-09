@@ -21,6 +21,13 @@ const total_selected_quantity = document.getElementById("list_selected_vol");
 const getYoungest = document.querySelector(".youngest_btn");
 const getOldest = document.querySelector(".oldest_btn");
 
+//buttom TotalDonations
+
+const totalDonationBtn = document.querySelector(".button_total_donations");
+const totalDonationResultBtn = document.querySelector(
+  ".total_donations_result"
+);
+
 let transformFiltersToString;
 
 function clearContent() {
@@ -52,6 +59,21 @@ async function app() {
   //initial state for database
   let currentDB = [...resultDB];
   let currentSelectedUsers = [...initialSelectedUsers];
+
+  function getTotalDonationsAmount(arr) {
+    return arr.reduce(
+      (totalSum, volunteer) =>
+        totalSum +
+        volunteer.donation.reduce((acc, donation) => acc + donation.amount, 0),
+      0
+    );
+  }
+
+  totalDonationBtn.addEventListener("click", () => {
+    const totalDonations = getTotalDonationsAmount(currentDB);
+    totalDonationResultBtn.innerText =
+      getTotalDonationsAmount(currentDB).toLocaleString();
+  });
 
   volunteersRender();
 
