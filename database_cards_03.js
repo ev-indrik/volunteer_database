@@ -43,6 +43,70 @@ function clearMainDbContent() {
 
 renderPlaceholder();
 
+class ModalforAgeBt {
+  constructor(modalTitle) {
+    this.modalTitle = modalTitle;
+  }
+
+  render(minAgeObject) {
+    const cover = document.createElement("div");
+    cover.classList.add("modal-cover", "active");
+
+    cover.addEventListener("click", (event) => {
+      if (event.target.classList.contains("modal-cover")) {
+        this.hide();
+      }
+    });
+
+    const modalBody = document.createElement("form");
+    modalBody.classList.add("modal-body");
+    const title = document.createElement("h2");
+    title.innerText = this.modalTitle;
+    modalBody.appendChild(title);
+    const closeBtn = document.createElement("div");
+    closeBtn.classList.add("modalClose");
+    const closeBtnImage = document.createElement("img");
+    closeBtnImage.src = "./resources/Close_MD.svg";
+    closeBtn.appendChild(closeBtnImage);
+
+    closeBtn.addEventListener("click", (e) => this.hide());
+
+    modalBody.innerHTML = `
+      <div class="upper_card_info">
+        <div class="card_name_info">
+          <div class="avatar">
+            <img src="${minAgeObject.avatar}" alt="oops" />
+          </div>
+          <p>${minAgeObject.firstName} ${minAgeObject.secondName}</p>
+          <p>Age: ${minAgeObject.age}</p>
+        </div>
+       </div>
+      <div class="lower_card_info">
+        <div class="card_address_info">
+        <div class="card_address_info_content">
+        <p>Contact information:</p>
+          <p class="contact_info_text">${minAgeObject.phone}</p>
+          <p class="contact_info_text">${minAgeObject.email}</p>
+        </div> 
+        </div>
+        <div class="card_total_donation_info">
+          <p>Total donation:</p>
+          <p class="total_sum_text">3 000</p>
+        </div>
+      </div>
+    `;
+
+    modalBody.appendChild(closeBtn);
+    cover.appendChild(modalBody);
+    document.body.appendChild(cover);
+  }
+
+  hide() {
+    const cover = document.querySelector(".modal-cover");
+    cover.remove();
+  }
+}
+
 async function app() {
   async function fetchDatabase() {
     try {
@@ -90,22 +154,20 @@ async function app() {
   }
 
   // ==== youngest and oldest
-  const initialYoungButtonText = "Get the youngest volunteer";
 
-  const findYoungestVolunteer = () => {
+  // modal
+
+  const callModal = new ModalforAgeBt("Youngest User");
+  const oldestUserModal = new ModalforAgeBt("Oldest User");
+
+  //young and old logic
+
+  getYoungest.addEventListener("click", () => {
     const minAgeObject = currentDB.reduce((min, volunteer) => {
       return volunteer.age < min.age ? volunteer : min;
     }, currentDB[0]);
 
-    getYoungest.innerText = `The youngest volunteer is: ${minAgeObject.firstName} ${minAgeObject.secondName}, age: ${minAgeObject.age}`;
-  };
-
-  getYoungest.addEventListener("click", () => {
-    if (getYoungest.innerText !== initialYoungButtonText) {
-      getYoungest.innerText = initialYoungButtonText;
-    } else {
-      findYoungestVolunteer();
-    }
+    callModal.render(minAgeObject);
   });
 
   const initialButtonText = "Get the oldest volunteer";
@@ -124,6 +186,7 @@ async function app() {
     } else {
       findOldestVolunteer();
     }
+    oldestUserModal.render();
   });
 
   //=================Filters operations
