@@ -59,41 +59,87 @@ class ModalforAgeBt {
     });
 
     const modalBody = document.createElement("form");
-    modalBody.classList.add("modal-body");
+    modalBody.classList.add("modal_container");
     const title = document.createElement("h2");
     title.innerText = this.modalTitle;
     modalBody.appendChild(title);
     const closeBtn = document.createElement("div");
     closeBtn.classList.add("modalClose");
     const closeBtnImage = document.createElement("img");
-    closeBtnImage.src = "./resources/Close_MD.svg";
+    closeBtnImage.src = "./resources/modal_close_icon.svg";
     closeBtn.appendChild(closeBtnImage);
 
     closeBtn.addEventListener("click", (e) => this.hide());
 
     modalBody.innerHTML = `
-      <div class="upper_card_info">
-        <div class="card_name_info">
-          <div class="avatar">
-            <img src="${minAgeObject.avatar}" alt="oops" />
+        <div class="modal_header">
+
+          <div class="image_wrapper">
+            <img src="./media/photo.svg" alt="photo" />
           </div>
-          <p>${minAgeObject.firstName} ${minAgeObject.secondName}</p>
-          <p>Age: ${minAgeObject.age}</p>
+          <div class="name_box">
+            <h2>Eric Clapton</h2>
+          </div>
         </div>
-       </div>
-      <div class="lower_card_info">
-        <div class="card_address_info">
-        <div class="card_address_info_content">
-        <p>Contact information:</p>
-          <p class="contact_info_text">${minAgeObject.phone}</p>
-          <p class="contact_info_text">${minAgeObject.email}</p>
-        </div> 
+
+        <div class="modal_main">
+          <div class="main_personal_data_container">
+            <div class="personal_data_title">
+              <h3>Personal data</h3>
+            </div>
+            <div class="personal_data_table">
+              <div class="personal_age modal_table">
+                <span>Age:</span>
+                <span>32</span>
+              </div>
+              <div class="personal_email modal_table">
+                <span>email:</span>
+                <span>world@world.com</span>
+              </div>
+              <div class="personal_address modal_table">
+                <span>Address:</span>
+                <span>Berlin</span>
+              </div>
+              <div class="personal_country modal_table">
+                <span>Country:</span>
+                <span>Germany</span>
+              </div>
+              <div class="personal_driving_license modal_table">
+                <span>Driving license:</span>
+                <span>Yes</span>
+              </div>
+              <div class="personal_vet_experience modal_table">
+                <span>Vet experience:</span>
+                <span>Yes</span>
+              </div>
+              <div class="personal_another_pr modal_table">
+                <span>Another property:</span>
+                <span>example</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="donation_info_container">
+            <div class="donation_info_title">
+              <h3>Donations</h3>
+            </div>
+            <div class="donation_info_table modal_table">
+              <span>12.03.2023:</span>
+              <span>12 000</span>
+            </div>
+            <div class="donation_info_table modal_table">
+              <span>12.03.2023:</span>
+              <span>12 000</span>
+            </div>
+          </div>
         </div>
-        <div class="card_total_donation_info">
-          <p>Total donation:</p>
-          <p class="total_sum_text">3 000</p>
+
+        <div class="modal_footer">
+          <div class="footer_buttons_container">
+            <button class="ft_button ft_button_edit">Edit</button>
+            <button class="ft_button ft_button_close">Close</button>
+          </div>
         </div>
-      </div>
     `;
 
     modalBody.appendChild(closeBtn);
