@@ -43,6 +43,8 @@ function clearMainDbContent() {
 
 renderPlaceholder();
 
+//===MODAL
+
 class ModalforAgeBt {
   constructor(modalTitle) {
     this.modalTitle = modalTitle;
@@ -75,10 +77,10 @@ class ModalforAgeBt {
         <div class="modal_header">
 
           <div class="image_wrapper">
-            <img src="./media/photo.svg" alt="photo" />
+            <img src="${minAgeObject.avatar}" alt="photo" />
           </div>
           <div class="name_box">
-            <h2>Eric Clapton</h2>
+            <h2>${minAgeObject.firstName} ${minAgeObject.secondName}</h2>
           </div>
         </div>
 
@@ -90,31 +92,31 @@ class ModalforAgeBt {
             <div class="personal_data_table">
               <div class="personal_age modal_table">
                 <span>Age:</span>
-                <span>32</span>
+                <span>${minAgeObject.age}</span>
               </div>
               <div class="personal_email modal_table">
                 <span>email:</span>
-                <span>world@world.com</span>
+                <span>${minAgeObject.email}</span>
               </div>
               <div class="personal_address modal_table">
                 <span>Address:</span>
-                <span>Berlin</span>
+                <span>${minAgeObject.address}</span>
               </div>
               <div class="personal_country modal_table">
                 <span>Country:</span>
-                <span>Germany</span>
+                <span>${minAgeObject.country}</span>
               </div>
               <div class="personal_driving_license modal_table">
                 <span>Driving license:</span>
-                <span>Yes</span>
+                <span>${minAgeObject.isHasDriverLicence}</span>
               </div>
               <div class="personal_vet_experience modal_table">
                 <span>Vet experience:</span>
-                <span>Yes</span>
+                <span>${minAgeObject.isHasVetExperience}</span>
               </div>
               <div class="personal_another_pr modal_table">
-                <span>Another property:</span>
-                <span>example</span>
+                <span>Additional info:</span>
+                <span>TBC</span>
               </div>
             </div>
           </div>
@@ -141,6 +143,8 @@ class ModalforAgeBt {
           </div>
         </div>
     `;
+
+    modalBody.addEventListener("submit", (e) => e.preventDefault());
 
     modalBody.appendChild(closeBtn);
     cover.appendChild(modalBody);

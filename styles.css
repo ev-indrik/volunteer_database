@@ -495,6 +495,8 @@
   justify-content: center;
   align-items: center;
   background-color: #00000030;
+  font-family: "Jost", sans-serif;
+
   top: 0;
   left: 0;
 
@@ -522,13 +524,6 @@
       position: relative;
       border-bottom: 1px solid #e7e7e7;
 
-      /* .modal_close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-    } */
-
       .image_wrapper {
         margin: 20px 20px 10pxv 10px;
         margin-right: 20px;
@@ -553,6 +548,7 @@
           margin: 0;
           font-size: 20px;
           padding-bottom: 10px;
+          color: #000000;
         }
       }
     }
@@ -561,7 +557,6 @@
       position: relative;
       display: flex;
       padding: 30px;
-      font-family: "Jost", sans-serif;
       background-color: #fff;
       justify-content: space-between;
       font-size: 12px;
