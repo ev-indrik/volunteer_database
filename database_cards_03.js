@@ -121,18 +121,20 @@ class ModalforAgeBt {
             </div>
           </div>
 
-          <div class="donation_info_container">
+           <div class="donation_info_container">
             <div class="donation_info_title">
               <h3>Donations</h3>
             </div>
-            <div class="donation_info_table modal_table">
-              <span>12.03.2023:</span>
-              <span>12 000</span>
-            </div>
-            <div class="donation_info_table modal_table">
-              <span>12.03.2023:</span>
-              <span>12 000</span>
-            </div>
+            ${minAgeObject.donation
+              .map(
+                (donation) => `
+              <div class="donation_info_table modal_table">
+                <span>${donation.date}:</span>
+                <span>${donation.amount.toLocaleString()}</span>
+              </div>
+            `
+              )
+              .join("")}
           </div>
         </div>
 
@@ -184,7 +186,6 @@ async function app() {
   }
 
   totalDonationBtn.addEventListener("click", () => {
-    const totalDonations = getTotalDonationsAmount(currentDB);
     totalDonationResultBtn.innerText =
       getTotalDonationsAmount(currentDB).toLocaleString();
   });

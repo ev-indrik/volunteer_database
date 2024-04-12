@@ -8,6 +8,8 @@ function checkIsLogin() {
   const isUserLogin = localStorage.getItem("isLogin");
   if (isUserLogin) {
     isLogin = true;
+    getYoungest.disabled = false;
+    getOldest.disabled = false;
     loginIcon.classList.add("logged_in_user");
     loginIconImg.src = "./resources/login_user_avatar.png";
     app().then();
@@ -18,6 +20,8 @@ checkIsLogin();
 
 function logIn() {
   isLogin = true;
+  getYoungest.disabled = false;
+  getOldest.disabled = false;
   localStorage.setItem("isLogin", isLogin);
   loginIcon.classList.add("logged_in_user");
   loginIconImg.src = "./resources/login_user_avatar.png";
@@ -26,6 +30,8 @@ function logIn() {
 
 function logOut() {
   isLogin = false;
+  getYoungest.disabled = true;
+  getOldest.disabled = true;
   localStorage.clear();
   loginIcon.classList.remove("logged_in_user");
   loginIconImg.src = "./resources/User_02.svg";
@@ -49,6 +55,16 @@ popUp.addEventListener("click", () => {
     logOut();
   }
 });
+
+// if (!isLogin) {
+//   getYoungest.disabled = true;
+//   getOldest.disabled = true;
+// } else {
+//   getYoungest.disabled = false;
+//   getOldest.disabled = false;
+// }
+
+// console.log("<><>", getYoungest);
 
 // popUp.addEventListener("click", () => {
 //   popUp.classList.remove("active02");
