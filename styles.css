@@ -86,6 +86,7 @@
     width: 320px;
     height: 32px;
     align-items: center;
+    padding-right: 10px;
 
     .search_glass_logo {
       padding: 8px 0px 0px 8px;
@@ -95,6 +96,12 @@
 
 .search-input {
   text-indent: 10px;
+  flex: 1 1 auto;
+}
+
+.clear-text {
+  cursor: pointer;
+  margin-left: 5px;
 }
 
 .login_wrapper {
@@ -458,28 +465,213 @@
     grid-column: 3;
 
     .total_donations_window {
+      background-color: #a5b5c8;
+      position: relative;
       display: flex;
-      align-items: start;
-      justify-content: space-between;
-      background-color: #ffffff;
+      align-items: center;
+      justify-content: end;
       border-radius: 8px;
       margin-top: 8px;
       margin-right: 8px;
-
-      .button_total_donations {
-        background-color: #2e527d;
-        border-radius: 8px;
-        padding: 6px 10px;
-        color: #ffffff;
-        font-size: 12px;
-
-        margin-right: 4px;
-      }
+      height: 40px;
+      width: 240px;
+      padding: 10px;
+      transition: all 1s ease;
 
       .total_donations_result {
-        padding: 6px 10px;
         font-size: 12px;
-        text-align: end;
+      }
+
+      .button_total_donations {
+        top: 0;
+        right: 0;
+        position: absolute;
+        background-color: #2e527d;
+        border-radius: 8px;
+        width: 120px;
+        height: 40px;
+        color: #ffffff;
+        font-size: 12px;
+        transition: transform 0.5s ease;
+      }
+    }
+  }
+}
+.total_donations_window.clicked02 {
+  background-color: #fff !important;
+}
+
+.button_total_donations.clicked {
+  transform: translate(-100%);
+}
+
+/* Modal window */
+
+.modal-cover {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00000030;
+  font-family: "Jost", sans-serif;
+
+  top: 0;
+  left: 0;
+
+  .modal_container {
+    background-color: #fff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    width: 600px;
+    min-height: 200px;
+    box-shadow: 6px 5px 4px 0px #0000001a;
+
+    .modalClose {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+
+    .modal_header {
+      display: flex;
+      padding: 20px 30px 10px;
+      justify-content: start;
+      position: relative;
+      border-bottom: 1px solid #e7e7e7;
+
+      .image_wrapper {
+        margin: 20px 20px 10pxv 10px;
+        margin-right: 20px;
+        border-radius: 8px;
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .name_box {
+        font-size: 20px;
+        display: flex;
+        align-items: end;
+
+        h2 {
+          margin: 0;
+          font-size: 20px;
+          padding-bottom: 10px;
+          color: #000000;
+        }
+      }
+
+      .modal_title {
+        color: #000000;
+        font-size: 16px;
+        margin-right: 15px;
+        padding-bottom: 10px;
+      }
+    }
+
+    .modal_main {
+      position: relative;
+      display: flex;
+      padding: 30px;
+      background-color: #fff;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #212121;
+
+      .main_personal_data_container {
+        display: flex;
+        flex-direction: column;
+        min-width: 45%;
+
+        .personal_data_title {
+          font-size: 16px;
+          margin-bottom: 10px;
+
+          h3 {
+            margin: 0;
+          }
+        }
+
+        .personal_data_table {
+          .modal_table {
+            :first-child {
+              width: 50%;
+            }
+
+            display: flex;
+            line-height: 100%;
+            border-bottom: 1px solid #e7e7e7;
+            padding: 6px 0 2px;
+          }
+        }
+      }
+
+      .donation_info_container {
+        display: flex;
+        flex-direction: column;
+        min-width: 45%;
+
+        .donation_info_title {
+          font-size: 16px;
+          margin-bottom: 10px;
+
+          h3 {
+            margin: 0;
+          }
+        }
+        .donation_info_table {
+          :first-child {
+            width: 50%;
+          }
+
+          display: flex;
+          justify-content: space-between;
+          line-height: 100%;
+          border-bottom: 1px solid #e7e7e7;
+          padding: 6px 0 2px;
+        }
+      }
+    }
+
+    .modal_footer {
+      border-top: 1px solid #e7e7e7;
+      padding: 10px 30px 20px;
+
+      .footer_buttons_container {
+        display: flex;
+        justify-content: end;
+
+        .ft_button {
+          min-width: 150px;
+          height: 30px;
+          border-radius: 6px;
+          cursor: pointer;
+          outline: unset;
+        }
+      }
+
+      .ft_button_edit {
+        background-color: #4876d4;
+        color: #fff;
+        border: 1px solid #4876d4;
+        margin-right: 8px;
+      }
+
+      .ft_button_close {
+        background-color: #fff;
+        color: #4876d4;
+        border: 1px solid #4876d4;
       }
     }
   }

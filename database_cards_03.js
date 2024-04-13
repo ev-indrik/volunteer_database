@@ -1,7 +1,18 @@
+// log in & log out logic
+let isLogin = false;
+const loginIcon = document.querySelector(".login_icon");
+const popUp = document.querySelector(".pop_up");
+const popUpText = popUp.querySelector("p");
+const loginIconImg = document.getElementById("login_icon_img");
+
 // ===== main div-es for cards rendering
 
 const table_cards_content = document.querySelector(".table_content");
 const selected_cards_area = document.querySelector(".cards_container");
+
+// ===== Input for searching by name
+const searchInput = document.getElementById("search-input");
+const searchReset = document.querySelector(".clear-text");
 
 // side checkboxes
 const femaleCheckbox = document.getElementById("option2");
@@ -21,6 +32,14 @@ const total_selected_quantity = document.getElementById("list_selected_vol");
 const getYoungest = document.querySelector(".youngest_btn");
 const getOldest = document.querySelector(".oldest_btn");
 
+//button TotalDonations
+
+const totalDonationBtn = document.querySelector(".button_total_donations");
+const totalDonationResultBtn = document.querySelector(
+  ".total_donations_result"
+);
+const totalDonationWindow = document.querySelector(".total_donations_window");
+
 let transformFiltersToString;
 
 function clearContent() {
@@ -32,9 +51,126 @@ function clearMainDbContent() {
   table_cards_content.innerHTML = "";
 }
 
-//======cat page========
+//===MODAL
 
-renderPlaceholder();
+class ModalforAgeBt {
+  constructor(modalTitle) {
+    this.modalTitle = modalTitle;
+  }
+
+  render(minAgeObject) {
+    const cover = document.createElement("div");
+    cover.classList.add("modal-cover", "active");
+
+    cover.addEventListener("click", (event) => {
+      if (event.target.classList.contains("modal-cover")) {
+        this.hide();
+      }
+    });
+
+    const modalBody = document.createElement("div");
+    modalBody.classList.add("modal_container");
+    const closeBtn = document.createElement("div");
+    closeBtn.classList.add("modalClose");
+    const closeBtnImage = document.createElement("img");
+    closeBtnImage.src = "./resources/modal_close_icon.svg";
+    closeBtn.appendChild(closeBtnImage);
+
+    closeBtn.addEventListener("click", (e) => this.hide());
+
+    modalBody.innerHTML = `
+        <div class="modal_header">
+
+          <div class="image_wrapper">
+            <img src="${
+              minAgeObject?.avatar ? minAgeObject?.avatar : ""
+            }" alt="photo" />
+          </div>
+          <div class="name_box">
+          <div class="modal_title">${this.modalTitle}</div>
+            <h2>${minAgeObject.firstName} ${minAgeObject.secondName}</h2>
+          </div>
+        </div>
+
+        <div class="modal_main">
+          <div class="main_personal_data_container">
+            <div class="personal_data_title">
+              <h3>Personal data</h3>
+            </div>
+            <div class="personal_data_table">
+              <div class="personal_age modal_table">
+                <span>Age:</span>
+                <span>${minAgeObject.age}</span>
+              </div>
+              <div class="personal_email modal_table">
+                <span>email:</span>
+                <span>${minAgeObject.email}</span>
+              </div>
+              <div class="personal_address modal_table">
+                <span>Address:</span>
+                <span>${minAgeObject.address}</span>
+              </div>
+              <div class="personal_country modal_table">
+                <span>Country:</span>
+                <span>${minAgeObject.country}</span>
+              </div>
+              <div class="personal_driving_license modal_table">
+                <span>Driving license:</span>
+                <span>${minAgeObject.isHasDriverLicence}</span>
+              </div>
+              <div class="personal_vet_experience modal_table">
+                <span>Vet experience:</span>
+                <span>${minAgeObject.isHasVetExperience}</span>
+              </div>
+              <div class="personal_another_pr modal_table">
+                <span>Additional info:</span>
+                <span>TBC</span>
+              </div>
+            </div>
+          </div>
+
+           <div class="donation_info_container">
+            <div class="donation_info_title">
+              <h3>Donations</h3>
+            </div>
+            ${minAgeObject.donation
+              .map(
+                (donation) => `
+              <div class="donation_info_table modal_table">
+                <span>${donation.date}:</span>
+                <span>${donation.amount.toLocaleString()}</span>
+              </div>
+            `
+              )
+              .join("")}
+          </div>
+        </div>
+
+        <div class="modal_footer">
+          <div class="footer_buttons_container">
+            <button class="ft_button ft_button_edit">Edit</button>
+            <button class="ft_button ft_button_close">Close</button>
+          </div>
+        </div>
+    `;
+
+    const closeButton = modalBody.querySelector(".ft_button_close");
+    closeButton.addEventListener("click", () => {
+      this.hide();
+    });
+
+    modalBody.addEventListener("submit", (e) => e.preventDefault());
+
+    modalBody.appendChild(closeBtn);
+    cover.appendChild(modalBody);
+    document.body.appendChild(cover);
+  }
+
+  hide() {
+    const cover = document.querySelector(".modal-cover");
+    cover.remove();
+  }
+}
 
 async function app() {
   async function fetchDatabase() {
@@ -46,62 +182,109 @@ async function app() {
       console.error("Error fetching data:", error);
     }
   }
-  const resultDB = await fetchDatabase();
-  const initialSelectedUsers = resultDB.filter((it) => it.isSelected);
+  let resultDB = [];
+  let currentDB = [];
+  let currentSelectedUsers = [];
+  let filtersStateArray = [];
 
-  //initial state for database
-  let currentDB = [...resultDB];
-  let currentSelectedUsers = [...initialSelectedUsers];
+  if (isLogin) {
+    resultDB = await fetchDatabase();
+    currentDB = [...resultDB];
+    const initialSelectedUsers = resultDB.filter((it) => it.isSelected);
+    currentSelectedUsers = [...initialSelectedUsers];
+  } else {
+    resultDB = [];
+    currentDB = [];
+    currentSelectedUsers = [];
+    filtersStateArray = [];
+  }
 
-  volunteersRender();
+  // Searching by name
+
+  function searchUsers(searchText) {
+    const searchedUsers = currentDB.filter((it) => {
+      return (
+        it.firstName.toLowerCase().includes(searchText.toLowerCase()) ||
+        it.secondName.toLowerCase().includes(searchText.toLowerCase())
+      );
+    });
+    return searchedUsers;
+  }
+
+  let typingTimer; // Timer identifier
+  const doneTypingInterval = 2000;
+
+  searchInput.addEventListener("input", () => {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+      const searchResjult = searchUsers(searchInput.value);
+      currentDB = [...searchResjult];
+      volunteersRender();
+    }, doneTypingInterval);
+  });
+
+  searchReset.addEventListener("click", () => {
+    searchInput.value = "";
+    transformFiltersToString = "";
+    currentDB = resultDB;
+    volunteersRender();
+  });
+
+  //======Total amount
+
+  function getTotalDonationsAmount(arr) {
+    return arr.reduce(
+      (totalSum, volunteer) =>
+        totalSum +
+        volunteer.donation.reduce((acc, donation) => acc + donation.amount, 0),
+      0
+    );
+  }
+
+  totalDonationBtn.addEventListener("click", () => {
+    totalDonationBtn.classList.add("clicked");
+    totalDonationWindow.classList.add("clicked02");
+    totalDonationResultBtn.innerText =
+      getTotalDonationsAmount(currentDB).toLocaleString();
+    setTimeout(() => {
+      totalDonationBtn.classList.remove("clicked");
+      totalDonationWindow.classList.remove("clicked02");
+    }, 3000);
+  });
 
   //
 
-  let filtersStateArray = [];
-
-  function getFilteredDB(filteredCountryKey) {
-    if (filteredCountryKey !== "all") {
-      return currentDB.filter((it) => it.country === filteredCountryKey);
-    } else {
-      return currentDB;
-    }
-  }
+  // function getFilteredDB(filteredCountryKey) {
+  //   if (filteredCountryKey !== "all") {
+  //     return currentDB.filter((it) => it.country === filteredCountryKey);
+  //   } else {
+  //     return currentDB;
+  //   }
+  // }
 
   // ==== youngest and oldest
-  const initialYoungButtonText = "Get the youngest volunteer";
 
-  const findYoungestVolunteer = () => {
+  // modal
+
+  const youngestModal = new ModalforAgeBt("Youngest User:");
+  const oldestModal = new ModalforAgeBt("Oldest User:");
+
+  //young and old logic
+
+  getYoungest.addEventListener("click", () => {
     const minAgeObject = currentDB.reduce((min, volunteer) => {
       return volunteer.age < min.age ? volunteer : min;
     }, currentDB[0]);
 
-    getYoungest.innerText = `The youngest volunteer is: ${minAgeObject.firstName} ${minAgeObject.secondName}, age: ${minAgeObject.age}`;
-  };
-
-  getYoungest.addEventListener("click", () => {
-    if (getYoungest.innerText !== initialYoungButtonText) {
-      getYoungest.innerText = initialYoungButtonText;
-    } else {
-      findYoungestVolunteer();
-    }
+    youngestModal.render(minAgeObject);
   });
 
-  const initialButtonText = "Get the oldest volunteer";
-
-  const findOldestVolunteer = () => {
+  getOldest.addEventListener("click", () => {
     const maxAgeObject = currentDB.reduce((max, volunteer) => {
       return volunteer.age > max.age ? volunteer : max;
     }, currentDB[0]);
 
-    getOldest.innerText = `The most experienced volonteer: ${maxAgeObject.firstName} ${maxAgeObject.secondName}, age ${maxAgeObject.age}`;
-  };
-
-  getOldest.addEventListener("click", () => {
-    if (getOldest.innerText !== initialButtonText) {
-      getOldest.innerText = initialButtonText;
-    } else {
-      findOldestVolunteer();
-    }
+    oldestModal.render(maxAgeObject);
   });
 
   //=================Filters operations
@@ -358,6 +541,12 @@ async function app() {
     total_selected_quantity.innerText = currentSelectedUsers.length;
   }
 
+  function clearFooterStatictics() {
+    total_filtered_quantity.innerText = 0;
+    total_vol_quantity.innerText = 0;
+    total_selected_quantity.innerText = 0;
+  }
+
   function selectedUsersRender(data) {
     selected_cards_area.innerHTML = "";
 
@@ -495,17 +684,6 @@ async function app() {
     selectedUsersRender(currentSelectedUsers);
   }
 
-  //===============Creating arrays for filters with already selected users
-
-  function createDBforFilters(firstDB, selectedUsersDB) {
-    const selectedUsersIds = selectedUsersDB.map((it) => it.id);
-
-    const result = firstDB.filter((it) => {
-      return !selectedUsersIds.includes(it.id);
-    });
-    return [...result, ...selectedUsersDB];
-  }
-
   //================== FilterByCountries ========================
 
   function filterUsersbyCity(filterkey) {
@@ -544,19 +722,23 @@ async function app() {
 
     if (targetCountry !== "all") {
       filtersStateArray.push(checkboxFilter);
+      transformFiltersToString = filtersStateArray
+        .map((item) => {
+          if (typeof item.value === "boolean") {
+            return `it.${item.key} === ${item.value}`;
+          } else {
+            return `it.${item.key} === "${item.value}"`;
+          }
+        })
+        .join(" && ");
+
+      volunteersRender();
+    } else {
+      searchInput.value = "";
+      transformFiltersToString = "";
+      currentDB = resultDB;
+      volunteersRender();
     }
-
-    transformFiltersToString = filtersStateArray
-      .map((item) => {
-        if (typeof item.value === "boolean") {
-          return `it.${item.key} === ${item.value}`;
-        } else {
-          return `it.${item.key} === "${item.value}"`;
-        }
-      })
-      .join(" && ");
-
-    volunteersRender();
   }
 
   const cities = document.querySelectorAll(".city");
@@ -572,10 +754,17 @@ async function app() {
   });
 
   // default render
-  volunteersRender();
-  selectedUsersRender(currentSelectedUsers);
+
+  if (isLogin) {
+    volunteersRender();
+    selectedUsersRender(currentSelectedUsers);
+  } else {
+    clearFooterStatictics();
+    renderPlaceholder();
+  }
   //
 }
+//============= APP END ===============
 
 function renderPlaceholder() {
   clearContent();
@@ -584,7 +773,7 @@ function renderPlaceholder() {
   cat_placeholder.innerHTML = `
                 <div class="cat_placeholder_content">
                   <div class="cat_placeholder_animation">
-                    
+
                     <lottie-player
                       src="https://lottie.host/b9bea9ed-25ed-4fa3-beb1-be41f8464380/nJSuZROa9E.json"
                       background="transparent"
@@ -603,3 +792,57 @@ function renderPlaceholder() {
                 `;
   table_cards_content.appendChild(cat_placeholder);
 }
+
+// ======= log in & log out functions======
+
+function checkIsLogin() {
+  const isUserLogin = localStorage.getItem("isLogin");
+  if (isUserLogin) {
+    isLogin = true;
+    getYoungest.disabled = false;
+    getOldest.disabled = false;
+    loginIcon.classList.add("logged_in_user");
+    loginIconImg.src = "./resources/login_user_avatar.png";
+  }
+  app();
+}
+
+function logIn() {
+  isLogin = true;
+  localStorage.setItem("isLogin", isLogin);
+  getYoungest.disabled = false;
+  getOldest.disabled = false;
+  loginIcon.classList.add("logged_in_user");
+  loginIconImg.src = "./resources/login_user_avatar.png";
+  app().then();
+}
+
+function logOut() {
+  isLogin = false;
+  localStorage.clear();
+  getYoungest.disabled = true;
+  getOldest.disabled = true;
+  loginIcon.classList.remove("logged_in_user");
+  loginIconImg.src = "./resources/User_02.svg";
+  app();
+}
+
+popUp.addEventListener("click", () => {
+  if (!isLogin) {
+    logIn();
+  } else {
+    logOut();
+  }
+});
+
+loginIcon.addEventListener("click", (e) => {
+  e.stopPropagation();
+  popUp.classList.toggle("active02");
+  if (!isLogin) {
+    popUpText.innerText = "Log in";
+  } else {
+    popUpText.innerText = "Log out";
+  }
+});
+
+checkIsLogin();
