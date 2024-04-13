@@ -1,3 +1,10 @@
+// log in & log out logic
+let isLogin = false;
+const loginIcon = document.querySelector(".login_icon");
+const popUp = document.querySelector(".pop_up");
+const popUpText = popUp.querySelector("p");
+const loginIconImg = document.getElementById("login_icon_img");
+
 // ===== main div-es for cards rendering
 
 const table_cards_content = document.querySelector(".table_content");
@@ -21,7 +28,7 @@ const total_selected_quantity = document.getElementById("list_selected_vol");
 const getYoungest = document.querySelector(".youngest_btn");
 const getOldest = document.querySelector(".oldest_btn");
 
-//buttom TotalDonations
+//button TotalDonations
 
 const totalDonationBtn = document.querySelector(".button_total_donations");
 const totalDonationResultBtn = document.querySelector(
@@ -38,10 +45,6 @@ function clearContent() {
 function clearMainDbContent() {
   table_cards_content.innerHTML = "";
 }
-
-//======cat page========
-
-renderPlaceholder();
 
 //===MODAL
 
@@ -60,11 +63,8 @@ class ModalforAgeBt {
       }
     });
 
-    const modalBody = document.createElement("form");
+    const modalBody = document.createElement("div");
     modalBody.classList.add("modal_container");
-    const title = document.createElement("h2");
-    title.innerText = this.modalTitle;
-    modalBody.appendChild(title);
     const closeBtn = document.createElement("div");
     closeBtn.classList.add("modalClose");
     const closeBtnImage = document.createElement("img");
@@ -77,9 +77,12 @@ class ModalforAgeBt {
         <div class="modal_header">
 
           <div class="image_wrapper">
-            <img src="${minAgeObject.avatar}" alt="photo" />
+            <img src="${
+              minAgeObject?.avatar ? minAgeObject?.avatar : ""
+            }" alt="photo" />
           </div>
           <div class="name_box">
+          <div class="modal_title">${this.modalTitle}</div>
             <h2>${minAgeObject.firstName} ${minAgeObject.secondName}</h2>
           </div>
         </div>
@@ -146,6 +149,11 @@ class ModalforAgeBt {
         </div>
     `;
 
+    const closeButton = modalBody.querySelector(".ft_button_close");
+    closeButton.addEventListener("click", () => {
+      this.hide();
+    });
+
     modalBody.addEventListener("submit", (e) => e.preventDefault());
 
     modalBody.appendChild(closeBtn);
@@ -169,12 +177,25 @@ async function app() {
       console.error("Error fetching data:", error);
     }
   }
-  const resultDB = await fetchDatabase();
-  const initialSelectedUsers = resultDB.filter((it) => it.isSelected);
+  let resultDB = [];
+  let currentDB = [];
+  let currentSelectedUsers = [];
+  let filtersStateArray = [];
 
-  //initial state for database
-  let currentDB = [...resultDB];
-  let currentSelectedUsers = [...initialSelectedUsers];
+  if (isLogin) {
+    resultDB = await fetchDatabase();
+    currentDB = [...resultDB];
+    const initialSelectedUsers = resultDB.filter((it) => it.isSelected);
+    currentSelectedUsers = [...initialSelectedUsers];
+  } else {
+    resultDB = [];
+    currentDB = [];
+    currentSelectedUsers = [];
+    filtersStateArray = [];
+    // renderPlaceholder();
+  }
+
+  //======Total amount
 
   function getTotalDonationsAmount(arr) {
     return arr.reduce(
@@ -190,11 +211,7 @@ async function app() {
       getTotalDonationsAmount(currentDB).toLocaleString();
   });
 
-  volunteersRender();
-
   //
-
-  let filtersStateArray = [];
 
   function getFilteredDB(filteredCountryKey) {
     if (filteredCountryKey !== "all") {
@@ -208,8 +225,8 @@ async function app() {
 
   // modal
 
-  const callModal = new ModalforAgeBt("Youngest User");
-  const oldestUserModal = new ModalforAgeBt("Oldest User");
+  const youngestModal = new ModalforAgeBt("Youngest User:");
+  const oldestModal = new ModalforAgeBt("Oldest User:");
 
   //young and old logic
 
@@ -218,26 +235,15 @@ async function app() {
       return volunteer.age < min.age ? volunteer : min;
     }, currentDB[0]);
 
-    callModal.render(minAgeObject);
+    youngestModal.render(minAgeObject);
   });
 
-  const initialButtonText = "Get the oldest volunteer";
-
-  const findOldestVolunteer = () => {
+  getOldest.addEventListener("click", () => {
     const maxAgeObject = currentDB.reduce((max, volunteer) => {
       return volunteer.age > max.age ? volunteer : max;
     }, currentDB[0]);
 
-    getOldest.innerText = `The most experienced volonteer: ${maxAgeObject.firstName} ${maxAgeObject.secondName}, age ${maxAgeObject.age}`;
-  };
-
-  getOldest.addEventListener("click", () => {
-    if (getOldest.innerText !== initialButtonText) {
-      getOldest.innerText = initialButtonText;
-    } else {
-      findOldestVolunteer();
-    }
-    oldestUserModal.render();
+    oldestModal.render(maxAgeObject);
   });
 
   //=================Filters operations
@@ -494,6 +500,12 @@ async function app() {
     total_selected_quantity.innerText = currentSelectedUsers.length;
   }
 
+  function clearFooterStatictics() {
+    total_filtered_quantity.innerText = 0;
+    total_vol_quantity.innerText = 0;
+    total_selected_quantity.innerText = 0;
+  }
+
   function selectedUsersRender(data) {
     selected_cards_area.innerHTML = "";
 
@@ -631,17 +643,6 @@ async function app() {
     selectedUsersRender(currentSelectedUsers);
   }
 
-  //===============Creating arrays for filters with already selected users
-
-  function createDBforFilters(firstDB, selectedUsersDB) {
-    const selectedUsersIds = selectedUsersDB.map((it) => it.id);
-
-    const result = firstDB.filter((it) => {
-      return !selectedUsersIds.includes(it.id);
-    });
-    return [...result, ...selectedUsersDB];
-  }
-
   //================== FilterByCountries ========================
 
   function filterUsersbyCity(filterkey) {
@@ -708,10 +709,17 @@ async function app() {
   });
 
   // default render
-  volunteersRender();
-  selectedUsersRender(currentSelectedUsers);
+
+  if (isLogin) {
+    volunteersRender();
+    selectedUsersRender(currentSelectedUsers);
+  } else {
+    clearFooterStatictics();
+    renderPlaceholder();
+  }
   //
 }
+//============= APP END ===============
 
 function renderPlaceholder() {
   clearContent();
@@ -720,7 +728,7 @@ function renderPlaceholder() {
   cat_placeholder.innerHTML = `
                 <div class="cat_placeholder_content">
                   <div class="cat_placeholder_animation">
-                    
+
                     <lottie-player
                       src="https://lottie.host/b9bea9ed-25ed-4fa3-beb1-be41f8464380/nJSuZROa9E.json"
                       background="transparent"
@@ -739,3 +747,58 @@ function renderPlaceholder() {
                 `;
   table_cards_content.appendChild(cat_placeholder);
 }
+
+// ======= log in & log out functions======
+
+function checkIsLogin() {
+  const isUserLogin = localStorage.getItem("isLogin");
+  if (isUserLogin) {
+    isLogin = true;
+    getYoungest.disabled = false;
+    getOldest.disabled = false;
+    loginIcon.classList.add("logged_in_user");
+    loginIconImg.src = "./resources/login_user_avatar.png";
+  }
+  app();
+}
+
+function logIn() {
+  isLogin = true;
+  localStorage.setItem("isLogin", isLogin);
+  getYoungest.disabled = false;
+  getOldest.disabled = false;
+  loginIcon.classList.add("logged_in_user");
+  loginIconImg.src = "./resources/login_user_avatar.png";
+  app().then();
+}
+
+function logOut() {
+  isLogin = false;
+  localStorage.clear();
+  getYoungest.disabled = true;
+  getOldest.disabled = true;
+  loginIcon.classList.remove("logged_in_user");
+  loginIconImg.src = "./resources/User_02.svg";
+  app();
+}
+
+popUp.addEventListener("click", () => {
+  if (!isLogin) {
+    logIn();
+  } else {
+    logOut();
+  }
+});
+
+loginIcon.addEventListener("click", (e) => {
+  e.stopPropagation();
+  popUp.classList.toggle("active02");
+  if (!isLogin) {
+    popUpText.innerText = "Log in";
+  } else {
+    popUpText.innerText = "Log out";
+  }
+});
+
+checkIsLogin();
+// app();

@@ -33,6 +33,7 @@ function logOut() {
   getYoungest.disabled = true;
   getOldest.disabled = true;
   localStorage.clear();
+  // currentDB = [];
   loginIcon.classList.remove("logged_in_user");
   loginIconImg.src = "./resources/User_02.svg";
   renderPlaceholder();
@@ -55,28 +56,3 @@ popUp.addEventListener("click", () => {
     logOut();
   }
 });
-
-// if (!isLogin) {
-//   getYoungest.disabled = true;
-//   getOldest.disabled = true;
-// } else {
-//   getYoungest.disabled = false;
-//   getOldest.disabled = false;
-// }
-
-// console.log("<><>", getYoungest);
-
-// popUp.addEventListener("click", () => {
-//   popUp.classList.remove("active02");
-// });
-
-// loginIcon.addEventListener("click", () => {
-//   popUp.classList.add("active02");
-//   if (!isLogin) {
-//     popUp.classList.add("active03");
-//     isLogin = true;
-//   } else {
-//     popUp.classList.add("active04");
-//     isLogin = false;
-//   }
-// });
