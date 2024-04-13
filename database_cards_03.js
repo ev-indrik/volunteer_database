@@ -10,6 +10,10 @@ const loginIconImg = document.getElementById("login_icon_img");
 const table_cards_content = document.querySelector(".table_content");
 const selected_cards_area = document.querySelector(".cards_container");
 
+// ===== Input for searching by name
+const searchInput = document.getElementById("search-input");
+const searchReset = document.querySelector(".clear-text");
+
 // side checkboxes
 const femaleCheckbox = document.getElementById("option2");
 const driveCheckbox = document.getElementById("option3");
@@ -195,6 +199,37 @@ async function app() {
     filtersStateArray = [];
   }
 
+  // Searching by name
+
+  function searchUsers(searchText) {
+    const searchedUsers = currentDB.filter((it) => {
+      return (
+        it.firstName.toLowerCase().includes(searchText.toLowerCase()) ||
+        it.secondName.toLowerCase().includes(searchText.toLowerCase())
+      );
+    });
+    return searchedUsers;
+  }
+
+  let typingTimer; // Timer identifier
+  const doneTypingInterval = 2000;
+
+  searchInput.addEventListener("input", () => {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+      const searchResjult = searchUsers(searchInput.value);
+      currentDB = [...searchResjult];
+      volunteersRender();
+    }, doneTypingInterval);
+  });
+
+  searchReset.addEventListener("click", () => {
+    searchInput.value = "";
+    transformFiltersToString = "";
+    currentDB = resultDB;
+    volunteersRender();
+  });
+
   //======Total amount
 
   function getTotalDonationsAmount(arr) {
@@ -219,13 +254,13 @@ async function app() {
 
   //
 
-  function getFilteredDB(filteredCountryKey) {
-    if (filteredCountryKey !== "all") {
-      return currentDB.filter((it) => it.country === filteredCountryKey);
-    } else {
-      return currentDB;
-    }
-  }
+  // function getFilteredDB(filteredCountryKey) {
+  //   if (filteredCountryKey !== "all") {
+  //     return currentDB.filter((it) => it.country === filteredCountryKey);
+  //   } else {
+  //     return currentDB;
+  //   }
+  // }
 
   // ==== youngest and oldest
 
@@ -687,19 +722,23 @@ async function app() {
 
     if (targetCountry !== "all") {
       filtersStateArray.push(checkboxFilter);
+      transformFiltersToString = filtersStateArray
+        .map((item) => {
+          if (typeof item.value === "boolean") {
+            return `it.${item.key} === ${item.value}`;
+          } else {
+            return `it.${item.key} === "${item.value}"`;
+          }
+        })
+        .join(" && ");
+
+      volunteersRender();
+    } else {
+      searchInput.value = "";
+      transformFiltersToString = "";
+      currentDB = resultDB;
+      volunteersRender();
     }
-
-    transformFiltersToString = filtersStateArray
-      .map((item) => {
-        if (typeof item.value === "boolean") {
-          return `it.${item.key} === ${item.value}`;
-        } else {
-          return `it.${item.key} === "${item.value}"`;
-        }
-      })
-      .join(" && ");
-
-    volunteersRender();
   }
 
   const cities = document.querySelectorAll(".city");
@@ -807,4 +846,3 @@ loginIcon.addEventListener("click", (e) => {
 });
 
 checkIsLogin();
-// app();
