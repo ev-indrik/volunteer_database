@@ -458,31 +458,44 @@
     grid-column: 3;
 
     .total_donations_window {
+      background-color: #a5b5c8;
+      position: relative;
       display: flex;
-      align-items: start;
-      justify-content: space-between;
-      background-color: #ffffff;
+      align-items: center;
+      justify-content: end;
       border-radius: 8px;
       margin-top: 8px;
       margin-right: 8px;
-
-      .button_total_donations {
-        background-color: #2e527d;
-        border-radius: 8px;
-        padding: 6px 10px;
-        color: #ffffff;
-        font-size: 12px;
-
-        margin-right: 4px;
-      }
+      height: 40px;
+      width: 240px;
+      padding: 10px;
+      transition: all 1s ease;
 
       .total_donations_result {
-        padding: 6px 10px;
         font-size: 12px;
-        text-align: end;
+      }
+
+      .button_total_donations {
+        top: 0;
+        right: 0;
+        position: absolute;
+        background-color: #2e527d;
+        border-radius: 8px;
+        width: 120px;
+        height: 40px;
+        color: #ffffff;
+        font-size: 12px;
+        transition: transform 0.5s ease;
       }
     }
   }
+}
+.total_donations_window.clicked02 {
+  background-color: #fff !important;
+}
+
+.button_total_donations.clicked {
+  transform: translate(-100%);
 }
 
 /* Modal window */
@@ -656,64 +669,3 @@
     }
   }
 }
-
-/* .modal-cover {
-  height: 100vh;
-  width: 100vw;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #00000030;
-  top: 0;
-  left: 0;
-
-  .modal-body {
-    position: relative;
-    width: 300px;
-    min-height: 200px;
-    font-family: "Jost", sans-serif;
-    background-color: #fff;
-    color: #000000;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    border-radius: 14px;
-    padding: 20px 20px;
-    font-size: 14px;
-    box-shadow: 12px -7px 4px 0px #0000001a;
-
-    .modalClose {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
-
-    .avatar {
-      display: flex;
-      justify-content: center;
-      width: 200px;
-      height: 200px;
-      border-radius: 100px;
-      overflow: hidden;
-    }
-
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      margin: 0 auto;
-    }
-
-    .lower_card_info {
-      width: 100%;
-      text-align: end;
-
-      .card_address_info {
-        display: flex;
-        justify-content: center;
-      }
-    }
-  }
-} */

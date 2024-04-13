@@ -34,6 +34,7 @@ const totalDonationBtn = document.querySelector(".button_total_donations");
 const totalDonationResultBtn = document.querySelector(
   ".total_donations_result"
 );
+const totalDonationWindow = document.querySelector(".total_donations_window");
 
 let transformFiltersToString;
 
@@ -192,7 +193,6 @@ async function app() {
     currentDB = [];
     currentSelectedUsers = [];
     filtersStateArray = [];
-    // renderPlaceholder();
   }
 
   //======Total amount
@@ -207,8 +207,14 @@ async function app() {
   }
 
   totalDonationBtn.addEventListener("click", () => {
+    totalDonationBtn.classList.add("clicked");
+    totalDonationWindow.classList.add("clicked02");
     totalDonationResultBtn.innerText =
       getTotalDonationsAmount(currentDB).toLocaleString();
+    setTimeout(() => {
+      totalDonationBtn.classList.remove("clicked");
+      totalDonationWindow.classList.remove("clicked02");
+    }, 3000);
   });
 
   //
