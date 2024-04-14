@@ -202,7 +202,7 @@ async function app() {
   // Searching by name
 
   function searchUsers(searchText) {
-    const searchedUsers = currentDB.filter((it) => {
+    const searchedUsers = resultDB.filter((it) => {
       return (
         it.firstName.toLowerCase().includes(searchText.toLowerCase()) ||
         it.secondName.toLowerCase().includes(searchText.toLowerCase())
@@ -260,7 +260,7 @@ async function app() {
   const oldestModal = new ModalforAgeBt("Oldest User:");
   const volunteerClicked = new ModalforAgeBt("Volunteer");
 
-  //young and old logic
+  //young, old logic
 
   getYoungest.addEventListener("click", () => {
     const minAgeObject = currentDB.reduce((min, volunteer) => {
@@ -600,6 +600,10 @@ async function app() {
     avatarImg.alt = "Volunteer Avatar";
     avatarDiv.appendChild(avatarImg);
     photoDiv.appendChild(avatarDiv);
+
+    avatarDiv.addEventListener("click", () => {
+      volunteerClicked.render(volunteer);
+    });
 
     const nameDiv = document.createElement("div");
     nameDiv.classList.add("database_item");
