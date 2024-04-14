@@ -212,7 +212,7 @@ async function app() {
   }
 
   let typingTimer; // Timer identifier
-  const doneTypingInterval = 2000;
+  const doneTypingInterval = 1000;
 
   searchInput.addEventListener("input", () => {
     clearTimeout(typingTimer);
@@ -252,22 +252,13 @@ async function app() {
     }, 3000);
   });
 
-  //
-
-  // function getFilteredDB(filteredCountryKey) {
-  //   if (filteredCountryKey !== "all") {
-  //     return currentDB.filter((it) => it.country === filteredCountryKey);
-  //   } else {
-  //     return currentDB;
-  //   }
-  // }
-
   // ==== youngest and oldest
 
   // modal
 
   const youngestModal = new ModalforAgeBt("Youngest User:");
   const oldestModal = new ModalforAgeBt("Oldest User:");
+  const volunteerClicked = new ModalforAgeBt("Volunteer");
 
   //young and old logic
 
