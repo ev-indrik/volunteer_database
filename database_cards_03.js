@@ -23,7 +23,7 @@ if (!isDesktopDevice()) {
         <div class="text_wrapper">
           <p>
             This application is available only for devices with screens more
-            than 900px
+            than 1024px
           </p>
           <p>See you there!</p>
         </div>
