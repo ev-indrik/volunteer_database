@@ -283,11 +283,17 @@
           min-width: 28px;
           border-radius: 14px;
           overflow: hidden;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
           img {
             width: 100%;
             height: 100%;
             object-fit: contain;
           }
+        }
+        :hover.avatar {
+          transform: scale(1.2);
         }
       }
 
@@ -673,6 +679,35 @@
         color: #4876d4;
         border: 1px solid #4876d4;
       }
+    }
+  }
+}
+
+.app_wrapper_mobile {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #a5b5c8;
+
+  .content {
+    max-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .text_wrapper {
+    padding-top: 10px;
+    border-top: 1px solid grey;
+
+    p {
+      padding-bottom: 10px;
+      font-size: 14px;
+      color: #002d63;
+      text-align: center;
+      line-height: 130%;
     }
   }
 }
