@@ -471,8 +471,7 @@
     grid-column: 3;
 
     .total_donations_window {
-      /* background-color: #a5b5c8; */
-      background-color: red;
+      background-color: #a5b5c8;
       position: relative;
       display: flex;
       align-items: center;
