@@ -1,5 +1,6 @@
+// ======== Check if the device is a desktop ========
+
 function isDesktopDevice() {
-  // Check if the device is a desktop based on media query
   const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
   return isDesktop;
 }
@@ -33,23 +34,23 @@ if (!isDesktopDevice()) {
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
  `;
 } else {
-  // log in & log out logic
+  // ======== log in & log out logic ========
   let isLogin = false;
   const loginIcon = document.querySelector(".login_icon");
   const popUp = document.querySelector(".pop_up");
   const popUpText = popUp.querySelector("p");
   const loginIconImg = document.getElementById("login_icon_img");
 
-  // ===== main div-es for cards rendering
+  // ======== main div-es for cards rendering ========
 
   const table_cards_content = document.querySelector(".table_content");
   const selected_cards_area = document.querySelector(".cards_container");
 
-  // ===== Input for searching by name
+  // ======== Input for searching by name ========
   const searchInput = document.getElementById("search-input");
   const searchReset = document.querySelector(".clear-text");
 
-  // side checkboxes
+  // ======== side checkboxes ========
   const femaleCheckbox = document.getElementById("option2");
   const driveCheckbox = document.getElementById("option3");
   const doctorCheckbox = document.getElementById("option4");
@@ -58,16 +59,16 @@ if (!isDesktopDevice()) {
   const psychologyCheckbox = document.getElementById("option7");
   const availableCheckbox = document.getElementById("option8");
 
-  //=====Total amounts in footer
+  // ======== Total amounts in footer ========
   const total_filtered_quantity = document.getElementById("total_filtered");
   const total_vol_quantity = document.getElementById("list_total_vol");
   const total_selected_quantity = document.getElementById("list_selected_vol");
 
-  //=====Yungest and oldest buttons
+  // ======== Yungest and oldest buttons ========
   const getYoungest = document.querySelector(".youngest_btn");
   const getOldest = document.querySelector(".oldest_btn");
 
-  //button TotalDonations
+  // ======== button TotalDonations ========
 
   const totalDonationBtn = document.querySelector(".button_total_donations");
   const totalDonationResultBtn = document.querySelector(
@@ -86,7 +87,7 @@ if (!isDesktopDevice()) {
     table_cards_content.innerHTML = "";
   }
 
-  //===MODAL
+  // ======== MODAL ========
 
   class ModalforAgeBt {
     constructor(modalTitle) {
@@ -234,7 +235,7 @@ if (!isDesktopDevice()) {
       filtersStateArray = [];
     }
 
-    // Searching by name
+    // ======== Searching by name ========
 
     function searchUsers(searchText) {
       const searchedUsers = resultDB.filter((it) => {
@@ -265,7 +266,7 @@ if (!isDesktopDevice()) {
       volunteersRender();
     });
 
-    //======Total amount
+    // ======== Total amount ========
 
     function getTotalDonationsAmount(arr) {
       return arr.reduce(
@@ -290,15 +291,15 @@ if (!isDesktopDevice()) {
       }, 3000);
     });
 
-    // ==== youngest and oldest
+    // ======== youngest and oldest ========
 
-    // modal
+    // ======== modal ========
 
     const youngestModal = new ModalforAgeBt("Youngest User:");
     const oldestModal = new ModalforAgeBt("Oldest User:");
     const volunteerClicked = new ModalforAgeBt("Volunteer");
 
-    //young, old logic
+    // ======== young, old logic
 
     getYoungest.addEventListener("click", () => {
       const minAgeObject = currentDB.reduce((min, volunteer) => {
@@ -316,7 +317,7 @@ if (!isDesktopDevice()) {
       oldestModal.render(maxAgeObject);
     });
 
-    //=================Filters operations
+    // ======== Filters operations ========
 
     femaleCheckbox.addEventListener("change", (e) => {
       const checkboxFilter = {
@@ -350,7 +351,7 @@ if (!isDesktopDevice()) {
       volunteersRender();
     });
 
-    //==========
+    // ======== Checkboxes ========
 
     driveCheckbox.addEventListener("change", (e) => {
       const checkboxFilter = {
@@ -549,7 +550,7 @@ if (!isDesktopDevice()) {
       volunteersRender();
     });
 
-    //=====================Rendering
+    // ======== Main Rendering Function ========
 
     function volunteersRender() {
       clearMainDbContent();
@@ -628,8 +629,6 @@ if (!isDesktopDevice()) {
       const card = document.createElement("div");
       card.classList.add("database_row");
 
-      // We create elements for each field of the volunteer and fill them with data
-
       const photoDiv = document.createElement("div");
       photoDiv.classList.add("database_item");
 
@@ -679,7 +678,6 @@ if (!isDesktopDevice()) {
       });
       checkboxDiv.appendChild(checkboxInput);
 
-      // we add created elements in card
       card.appendChild(photoDiv);
       card.appendChild(nameDiv);
       card.appendChild(emailDiv);
@@ -712,14 +710,12 @@ if (!isDesktopDevice()) {
         }
       });
 
-      //TO DO: set db to local storage
-
       currentDB = [...newCurrentDB];
       volunteersRender();
       selectedUsersRender(currentSelectedUsers);
     }
 
-    //================== FilterByCountries ========================
+    // ========  FilterByCountries ========
 
     function filterUsersbyCity(filterkey) {
       let targetCountry;
@@ -743,7 +739,7 @@ if (!isDesktopDevice()) {
           break;
       }
 
-      // filteredCountry = targetCountry;
+      // ======== filteredCountry = targetCountry ========
 
       const checkboxFilter = {
         id: "countryCheckbox",
@@ -797,9 +793,8 @@ if (!isDesktopDevice()) {
       clearFooterStatictics();
       renderPlaceholder();
     }
-    //
   }
-  //============= APP END ===============
+  // ======== APP END ========
 
   function renderPlaceholder() {
     clearContent();
@@ -828,7 +823,7 @@ if (!isDesktopDevice()) {
     table_cards_content.appendChild(cat_placeholder);
   }
 
-  // ======= log in & log out functions======
+  // ========  log in & log out functions ========
 
   function checkIsLogin() {
     const isUserLogin = localStorage.getItem("isLogin");
