@@ -7,30 +7,7 @@ function isDesktopDevice() {
 
 if (!isDesktopDevice()) {
   document.body.innerHTML = `
-  <div class="app_wrapper_mobile">
-      <div class="content">
-        <div class="animation_wrapper">
-          <lottie-player
-            src="https://lottie.host/273e641e-8b61-4a5b-b140-25751e66d4be/aoeSJGObHL.json"
-            background="transparent"
-            speed="1"
-            style="width: 300px; height: 200px"
-            direction="1"
-            mode="normal"
-            loop
-            autoplay
-          ></lottie-player>
-        </div>
-        <div class="text_wrapper">
-          <p>
-            testing
-          </p>
-          <p>See you there!</p>
-        </div>
-      </div>
-    </div>
-
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <div>PLEASE USE THE SCREEN NO LESS THAN 1024 px</div>
  `;
 } else {
   // ======== log in & log out logic ========
